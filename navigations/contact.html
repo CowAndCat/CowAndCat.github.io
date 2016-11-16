@@ -13,9 +13,7 @@ comment: true
             {{ site.author.detailIntro }}
         </div>
         <div class="about-image">
-			{% if site.author.imgRel %} <img src="{{site.baseurl}}/{{ site.author.imageLink }}" />
-			{% else %}<img src="{{ site.author.imageLink }}" />
-			{% endif %}            
+            <img src="{{ site.author.imageLink }}" />
         </div>
     </div>
     <div class="fn-clear"></div>

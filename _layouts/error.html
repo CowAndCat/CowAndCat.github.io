@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+        <!-- meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="generator" content="Jekyll" />
+        <meta name="author" content="{{ site.author.name }}" />
+        <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+        <meta name="keywords" content="{{ page.keywords | join: ',' }}" />
+        <!-- atom -->
+        <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.url }}{{ site.feed }}" />
+        <link rel="shortcut icon" href="{{ site.favicon }}" type="image/x-icon" />
+        <!-- font-awesome -->
+        <link rel="stylesheet" href="{{ site.url }}/css/syntax.css">
+        <link rel="stylesheet" href="{{ site.url }}/css/main.css">
+        
+    </head>
+<body>
+         <div class="wrap_container">
+	<div class="wrap_container_inner">
+		
+		<div class="container-bg">
+			<div class="container"><div class="main">
+	<h1>404 Error</h1>
+	<div class="panel_grey">
+		{{ content }}
+	</div>
+</div>
+			</div>
+		</div>
+	</div>   
+        
+        <div class="foot">
+            <div class="footer">
+                <p>Copyright 2015. All rights reserved. Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, Design by <a href="http://haluomao.github.io" target="_blank">Felix</a>.</p>
+            </div>
+        </div>      
+</div>		
+    </body>
+</html>

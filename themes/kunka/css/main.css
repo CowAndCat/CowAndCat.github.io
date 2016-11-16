@@ -136,7 +136,7 @@ a         { color: #91736b; text-decoration: none; }
 }
 .container {
     position: relative;
-    width: 960px;
+    width: 1280px;
     height: auto;
     min-height: 500px;
     margin: 0 auto;
@@ -144,7 +144,7 @@ a         { color: #91736b; text-decoration: none; }
 
 .main {
     float: left;
-    width: 600px;
+    width: 900px;
     padding: 40px 30px;
     min-height: 600px;
     height: auto;
@@ -726,7 +726,7 @@ a         { color: #91736b; text-decoration: none; }
     height: 100px;
 }
 .footer {
-    width: 960px;
+    /*width: 960px;*/
     padding-top: 20px;
     height: 80px;
     margin: 0 auto;

@@ -49,29 +49,29 @@ favicon: https://avatars0.githubusercontent.com/u/1695304?v=3&s=460
 #Nav config
 nav:
   - text: Home
-    url: index.html
+    url: /index.html
   - text: Categories
-    url: navigations/categories.html
+    url: /navigations/categories.html
   - text: Archives
-    url: navigations/archives.html
+    url: /navigations/archives.html
   - text: Contact
-    url: navigations/contact.html
+    url: /navigations/contact.html
   - text: Links
-    url: navigations/links.html
+    url: /navigations/links.html
   - text: Online CV
-    url: Resume/resume_cn.html
+    url: /Resume/resume_cn.html
 
 #Author config
 author:
     name: mfg
     email: maofg92@163.com
     imgRel: true
-    imageLink: images/avatar.png
+    imageLink: /images/avatar.png
     simpleIntro: I am Mao Fagui. <br /> Good Good Coding, Day Day Up!
     detailIntro:
       <p>It is the personal blog of Mao Fagui. </p>
       <p>Something interesting, awesome, important, or remarkable will be recorded as blogs here.</p>
-      <p>I've been looking for people who share common interests with me. I am very grad to make friends with you.</p>
+      <p>I've been looking for people who share common interests with me. I am very glad to make friends with you.</p>
 
 #Follow me, you can choose your icon by http://fortawesome.github.io/Font-Awesome/icons/#brand
 follow:
