@@ -118,4 +118,12 @@ duoshuo:
   id: zhanxin
  
 ########Global config
+username: haluomao
+baseurl:
+#markdown: kramdown #redcarpet
+safe: false
+highlighter: rouge #pygments
+title: MFG's Blog
+description: Good Good Coding, Day Day Up!
+disqusname: Blogs
 gems: [jekyll-paginate]
