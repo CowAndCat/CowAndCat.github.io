@@ -1,0 +1,328 @@
+/*
+
+Theme name: Professional Online Resume/CV
+Theme URI: www.themeforest.com
+Description: A clean, simple and professional CV/resume template
+Author: Ryan Furtner
+Author URI: http://www.furtzdesigns.com
+Version: 1.0
+
+*/
+
+/*
+------------------------------------------------------------
+  Size of your name (change for long names)   
+------------------------------------------------------------
+*/
+
+#name {
+	font-size:62px !important;
+	padding-top:0px !important;
+	height:77px;
+}
+
+/*
+------------------------------------------------------------
+|                         Site styles         
+------------------------------------------------------------
+*/
+
+body { 
+	font-family: "Myriad Pro", "Myriad Web", Myriad, Frutiger, Calibri, sans-serif; 
+	height:100%;
+	margin:0px; 
+	padding:0px; 
+	background: #0C3869 url(themes/blue.jpg) no-repeat top center fixed;
+	color:#fff;
+}
+
+#container {
+	width:960px;
+	margin:0 auto;
+	hieght:100%;
+}
+
+a img {
+	border:0 none;
+}
+
+a:link,
+a:visited {
+	color:#eee;
+	text-decoration:none;
+}
+
+a:hover {
+	border-bottom:1px dotted #eee;
+}
+
+.clear {
+	clear:both;
+	height:1px;
+	width:100%;
+}
+
+/*
+------------------------------------------------------------
+|                         Header styles         
+------------------------------------------------------------
+*/
+
+#header {	
+	z-index:103;
+	height:150px;
+}
+
+#name,
+.button_icon,
+#buttons,
+#buttons ul,
+.button,
+#details_wrap {
+	position:relative;
+	z-index:109;
+}
+
+#name {
+	font-size:62px;
+	margin:30px 0px 0px 0px;
+	float:left;
+	overflow:hidden;
+	padding-bottom:10px;
+	background: url(images/horizontal.gif) no-repeat center bottom;
+}
+
+.button_icon {
+	margin-right:10px;
+}
+
+#buttons {
+	float:right;
+	overflow:hidden;
+}
+
+#buttons ul {
+	margin:0px; 
+	padding:0px;
+	list-style:none;
+	margin-top:42px;
+}
+
+.button {
+	font-size:18px;
+	float:left;
+	margin-right:15px;
+	position:relative;
+	overflow:hidden;
+	z-index:105;
+}
+
+.button a {
+	display:block;
+	padding:6px 12px;
+	position:relative;
+	overflow:hidden;
+	z-index:105;	
+}
+
+.button a:link,
+.button a:visited {
+	outline:none;
+	color:white;
+	border:0 none;
+	text-decoration:none;
+}
+
+.button a:hover {
+	color:#CFE6FF;
+}
+
+#details_wrap {
+	text-align:center;
+	clear:both;
+	border-top:1px solid #666b71;
+	width:100%;
+}
+
+/* for IE 7 */
+
+#details {
+	overflow:hidden;
+	clear:both;
+	font-size:17px;
+	display:table;
+	margin:0 auto;
+	padding-left:25px;
+}
+
+#details ul {
+	float:left;
+	list-style-type:none;
+	margin:0 auto;
+	padding:0;
+	display:table-row;
+}
+
+.detail {
+	float:left;
+	margin-right:50px;
+	color:#81a5c8;
+	padding-top:12px;
+	background: url(images/angle.gif) no-repeat;
+	margin-left:-25px;
+	padding-left:25px;
+}
+
+.detail span {
+	color:white;
+}
+
+.last {
+	margin-right:0px !important;
+}
+
+/*
+------------------------------------------------------------
+|                         Main styles         
+------------------------------------------------------------
+*/
+
+#main {
+	clear:both;
+	width:650px;
+	height:100%;
+	float:left;
+	z-index:98;
+	position:relative;
+}
+
+#main h1 {
+	margin-top:30px;
+	margin-bottom:0px;
+	z-index:101;
+	position:relative;
+}
+
+.sub {
+	padding-left:40px;
+	background: url(images/border.jpg) repeat-y 15px 0px;
+	z-index:97;
+	position:relative;
+}
+
+h2 {
+	font-weight:500;
+	background: url(images/border2.jpg) no-repeat 0px 10px;
+	padding-left:25px;
+	position:relative;
+	left:-25px;
+}
+
+h2 small {
+	color:#81a5c8;
+	font-size:15px;
+}
+
+.position {
+	font-family: Arial, Helvetica,sans-serif;
+	font-size:12px;
+	margin-top:-17px;
+	color:#AFAFAF;
+}
+
+.sub p {
+	color:#DFDFDF;
+	padding-left:10px;
+	text-align:justify;
+	line-height:21px;
+}
+
+/*
+------------------------------------------------------------
+|                         sidebar styles         
+------------------------------------------------------------
+*/
+
+#sidebar {
+	width:280px;
+	float:right;
+	z-index:99;
+}
+
+#sidebar h1 {
+	margin-top:30px;
+	margin-bottom:0px;
+	z-index:100;
+	position:relative;
+}
+
+#sidebar ul {
+	color:#DFDFDF;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	background: url(images/border.jpg) repeat-y 10px 0px;
+}
+
+#sidebar li {
+	padding:2px 0px 5px 25px;
+	background: url(images/border2.jpg) no-repeat 0px 12px;
+	margin-left:10px;
+}
+
+/*
+------------------------------------------------------------
+|                         Footer styles         
+------------------------------------------------------------
+*/
+
+#footer {
+	clear:both;
+	width:100%;
+	overflow:hidden;
+	height:30px;
+}
+
+/*
+------------------------------------------------------------
+|                        Wrap styles   
+------------------------------------------------------------
+*/
+
+.item_wrap {
+	position:relative;
+	padding:0px 30px 30px 30px;
+	overflow:hidden;
+	margin:0px 0px 30px 0px;
+}
+
+.wrap_background {
+	position:absolute;
+	background:#000000;
+	height:100%;
+	width:100%;
+	top:0px;
+	left:0px;
+	z-index:1;
+	opacity:0.5;
+	filter:alpha(opacity: 50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+
+.button .wrap_background {
+	opacity:0.3;
+	filter:alpha(opacity: 30);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+}
+
+.header {
+	margin:30px 0px;
+}
+
+.ie6 .wrap_background {
+	display:none;
+}

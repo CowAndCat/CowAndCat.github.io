@@ -1,0 +1,34 @@
+body { background: #6C2B4B url(pink.jpg) no-repeat top center fixed; }
+
+h2 small,
+.detail,
+.button a:hover {
+	color:#EFA4B0;
+}
+
+/* lines */
+
+h2,
+#sidebar li {
+	background: url(border2-white.jpg) no-repeat 0px 12px;
+}
+
+#name {
+	background: url(horizontal-white.gif) no-repeat center bottom;
+}
+
+.sub {
+	background: url(border-white.jpg) repeat-y 15px 0px;
+}
+
+.detail {
+	background: url(angle-white.gif) no-repeat;
+}
+
+#sidebar ul {
+	background:url(border-white.jpg) repeat-y scroll 10px 0 transparent;
+}
+
+#details_wrap  {
+	border-top:1px solid #f4f4f4;
+}
