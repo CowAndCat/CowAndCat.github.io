@@ -105,7 +105,7 @@ customLinks:
 
 #googleAnaly, your id link UA-12345678-X
 googleAnaly:
-  config: true
+  config: false
   id: UA-40169250-1
 
 #comment config
@@ -126,4 +126,5 @@ highlighter: rouge #pygments
 title: MFG's Blog
 description: Good Good Coding, Day Day Up!
 disqusname: Blogs
+themename: kunka
 gems: [jekyll-paginate]
