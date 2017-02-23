@@ -4,7 +4,7 @@ title: 歌曲背后的故事
 category: life
 comments: false
 ---
-## 《修炼爱情》
+## 一、修炼爱情》
 
 >[修炼爱情_百度百科](http://baike.baidu.com/link?url=LKHAavuFg-QOCr1Uyk9O4EnbMXG4VmbmUs_CRpp8HjFbcdAQovIzIjQZ826BoBX_VtbCQ1997ae130VIQdZFXq#reference)
 

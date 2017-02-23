@@ -149,7 +149,7 @@ a         { color: #91736b; text-decoration: none; }
     min-height: 600px;
     height: auto;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-    background: #e3ded8 url(../images/cnt-top.jpg) repeat-x 0 0;
+    background: #fffefe url(../images/cnt-top.jpg) repeat-x 0 0;/*#e3ded8*/
 }
 
 .main .article {
@@ -179,7 +179,8 @@ a         { color: #91736b; text-decoration: none; }
 }
 .main .article p {
     line-height: 1.6;
-    color: #565656;
+    text-indent: 2em;
+    /*color: #565656; */
 }
 .main .article ul, .main .article ol {
     list-style-type: disc;
@@ -626,11 +627,11 @@ a         { color: #91736b; text-decoration: none; }
 }
 
 .aside {
-    padding: 20px 20px 40px 20px;
+    padding: 20px 0px 20px 40px;
     margin-top: 26px;
     float: left;
     background: #f2eeec url(../images/aside-bg.jpg) no-repeat 0px 0px;
-    width: 240px;
+    width: 280px;
     min-height: 500px;
     height: auto;
     box-shadow:  3px 3px 6px rgba(0, 0, 0, 0.1), 1px 0 4px rgba(0, 0, 0, 0.3) inset;
