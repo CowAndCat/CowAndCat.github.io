@@ -1,10 +1,11 @@
 ---
 layout: post
-title: 快速开发框架
+title: Java快速开发框架
 category: tech
 comments: false
 ---
-##1、 JFinal 极速开发
+## 1、 JFinal 极速开发
+
 >http://www.jfinal.com/
 
 JFinal 是基于 Java 语言的极速 WEB + ORM 框架，其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展、Restful。 在拥有Java语言所有优势的同时再拥有ruby、python、php等动态语言的开发效率！为您节约更多时间，去陪恋人、家人和朋友 :)
@@ -23,7 +24,8 @@ JFinal有如下主要特点：
 - 功能齐全，拥有struts2的绝大部分功能
 - 体积小仅248K，且无第三方依赖
 
-##2、play framework
+## 2、Play framework
+
 Play！是一个full-stack（全栈的）Java Web应用框架，包括一个简单的无状态MVC模型，具有Hibernate的对象持续，一个基于Groovy的模板引擎，以及建立一个现代Web应用所需的所有东西。
 
 特性：

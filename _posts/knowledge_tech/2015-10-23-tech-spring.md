@@ -9,7 +9,8 @@ comments: false
 阅读《Spring技术内幕——深入解析Spring架构与设计原理》、
 《精通Spring2.0》 罗时飞 2007（一看就知道是中国人写的书，利用一大堆名词和代码来凑数）、《Spring in Action（中文版）》 Craig Walls.etc. 
 
-###1、Spring是什么？
+### 1、Spring是什么？
+
 Spring是一个轻量级的IoC和AOP容器框架。
 
 - 轻量级：大小上和系统开支都是轻量级的，而且是非侵入式的。
@@ -20,31 +21,36 @@ Spring是一个轻量级的IoC和AOP容器框架。
 
 缺点：业务功能依赖spring特有的功能，依赖与spring环境。
 
-###2、Spring的主旨思想是什么？为什么会成功？
+### 2、Spring的主旨思想是什么？为什么会成功？
+
 IoC 和 AOP
 
 - 控制反转Ioc：BeanFactory使用工厂模式来实现，将系统的配置和依赖关系从代码中独立出来。
 - AOP：一种编程技术，用于在提供中提升业务的分离。spring中面向切面变成的实现有两种方式，一种是动态代理，一种是CGLIB，动态代理必须要提供接口，而CGLIB实现是有继承。
 
-###3、IOC容器
+### 3、IOC容器
+
 实现了对象创建责任的反转。
 
 一个是BeanFactory、一个是ApplicationContext。
 
-在spring中BeanFacotory是IoC容器的核心接口，负责实例化，定位，配置应用程序中的对象及建立这些对象间的依赖。
+	在spring中BeanFacotory是IoC容器的核心接口，负责实例化，定位，配置应用程序中的对象及建立这些对象间的依赖。
 
-XmlBeanFacotory实现BeanFactory接口，通过获取xml配置文件数据，组成应用对象及对象间的依赖关系。
+	XmlBeanFacotory实现BeanFactory接口，通过获取xml配置文件数据，组成应用对象及对象间的依赖关系。
 
-spring中有三种注入方式，一种是set注入，一种是接口注入，另一种是构造方法注入。
+spring注入和自动装配
 
-set注入和构造注入有时在做配置时比较麻烦。所以框架为了提高开发效率，提供自动装配功能，简化配置。  
-Spring框架式默认不支持自动装配的，要想使用自动装配需要修改spring配置文件中<bean>标签的autowire属性
+	spring中有三种注入方式，一种是set注入，一种是接口注入，另一种是构造方法注入。
 
-自动装配属性有6个值可选，分别代表不同的含义。（byName、byType、constructor、autodetect、no、default）
+	set注入和构造注入有时在做配置时比较麻烦。所以框架为了提高开发效率，提供自动装配功能，简化配置。  
+	Spring框架式默认不支持自动装配的，要想使用自动装配需要修改spring配置文件中<bean>标签的autowire属性
 
-自动装配功能和手动装配要是同时使用，那么自动装配就不起作用。
+	自动装配属性有6个值可选，分别代表不同的含义。（byName、byType、constructor、autodetect、no、default）
 
-###4、为什么springMVC和Mybatis逐渐流行起来了
+	自动装配功能和手动装配要是同时使用，那么自动装配就不起作用。
+
+### 4、为什么springMVC和Mybatis逐渐流行起来了
+
 Spring为Web系统提供了全功能的MVC框架。虽然Spring可以很容易地与其他MVC框架（如Struts)集成，但是Spring的MVC框架利用IoC将**控制逻辑和业务逻辑清晰地分离开**来。
 
 SpringMVC的优点:
@@ -59,7 +65,7 @@ MyBatis的优点：
 - 不需要配置实体类与数据表之间的映射关系；
 - hibernate不能自己控制sql语句
 
-###5、spring中的单元测试
+### 5、Spring中的单元测试
 
 测试类：最好单独建立项目，或者单独定义文件夹存储，需要继承junit.framework.TestCase
  
@@ -83,7 +89,8 @@ MyBatis的优点：
 
 setUp方法会在每一个测试方法前执行一次。tearDown方法会在每一个测试方法后执行一次。
 
-###6、spring中的注解
+### 6、Spring中的注解
+
 注解Annotation，是一种类似注释的机制，在代码中添加注解可以在之后某时间使用这些信息。跟注释不同的是，注释是给我们看的，java虚拟机不会编译，注解也是不编译的，但是我们可以通过反射机制去读取注解中的信息。注解使用关键字@interface，继承java.lang.annotition.Annotition
 
 使用注解编程，主要是为了替代xml文件，使开发更加快速。
@@ -98,7 +105,7 @@ spring框架使用的是分层的注解。
 这三个层中的注解关键字都可以使用@Component来代替。 
  使用注解声明对象，默认情况下生成的id名称为类名称的首字母小写。
 
-###7、从Spring环境中获取Action对象
+### 7、从Spring环境中获取Action对象
 
 	ServletContext application =request.getSession().getServletContext();
 	ApplicationContextac = WebApplicationContextUtils.getWebApplicationContext(application);
@@ -113,7 +120,8 @@ spring框架使用的是分层的注解。
 	out.println("Service:"+userAction.getUserService());
 	out.println("Dao:"+userAction.getUserService().getUserDao());
 
-###8、spring中的事务管理
+### 8、Spring中的事务管理
+
 Spring没有直接的事务管理，但是有很多的事务管理器可供选择。如：DataSourceTransactionManager、HibernateTransactionManager、JdoTransactionManager、JtaTransactionManager、PersistenceBrokerTransactionManager。
 
 （JDO-Java data object/Jta-Java transaction API/OJB-Object Relational Bridge）
@@ -145,7 +153,7 @@ Spring提供两种**编程式事务支持**：直接使用PlatformTransactionMan
 	    <property name="password" value="${db.password}" />  
 	</bean>
 
-####8.1 事务的属性
+#### 8.1 事务的属性
 
 传播行为：定义了关于客户端和被调用方法的事务边界。
 
@@ -176,10 +184,12 @@ Spring提供两种**编程式事务支持**：直接使用PlatformTransactionMan
 	    //setter...  
 	}  
 
+声明事务方式：
+
 1. 通过方法名声明事务：顺序如下——传播行为，隔离级别，只读，回滚规则。  
 2. 用元数据声明事务Jakarta Commons Attributes 和 JSR-175（两种元数据的实现）
 
-###9、一个请求在spring mvc中的生命周期
+### 9、一个请求在spring mvc中的生命周期
 
 ![2](/images/201511/springLifecycle.gif "生命周期")
 

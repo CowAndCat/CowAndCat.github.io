@@ -12,7 +12,7 @@ comments: false
 
 Hadoop 是一种使用 Java 编写的分布式计算平台。它吸收了 Google 文件系统和 MapReduce 等产品的特性。
 
-###1、hadoop运行的原理?
+### 1、hadoop运行的原理?
 
 hadoop主要由三方面组成:
 1、HDFS
@@ -26,17 +26,17 @@ hadoop主要由三方面组成:
 - 还会有多台Slave，每一台Slave通常具有DataNode的功能并负责TaskTracker的工作。  
 - TaskTracker根据应用要求来结合本地数据执行Map任务以及Reduce任务。
 
-###2、map/Reduce的原理?
+### 2、map/Reduce的原理?
 
 即“任务的分解与结果的汇总”。“Map（展开）”就是将一个任务分解成为多个任 务，“Reduce”就是将分解后多任务处理的结果汇总起来，得出最后的分析结果。
 
 
-###3、HDFS存储的机制?
+### 3、HDFS存储的机制?
 - HDFS(Hadoop Distributed File System)默认的最基本的存储单位是64M的数据块。
 - 和普通文件系统相同的是，HDFS中的文件是被分成64M一块的数据块存储的。
 - 不同于普通文件系统的是，HDFS中，如果一个文件小于一个数据块的大小，并不占用整个数据块存储空间。
 
-####3.1 NameNode、DataNode和 Client。  
+#### 3.1 NameNode、DataNode和 Client。  
 ![1](/images/201510/hadoop.gif "hadoop")  
 上图中展现了整个HDFS三个重要角色：NameNode、DataNode和 Client。  
 
@@ -64,7 +64,7 @@ hadoop主要由三方面组成:
   b):通知DataNode相互复制Block。
   c):DataNode开始直接相互复制.
 
-####3.1 元数据节点(Namenode)和数据节点(datanode)
+#### 3.1 元数据节点(Namenode)和数据节点(datanode)
 - 元数据节点用来管理文件系统的命名空间
 	- 其将所有的文件和文件夹的元数据保存在一个文件系统树中。
 	- 这些信息也会在硬盘上保存成以下文件：命名空间镜像(namespace image)及修改日志(edit log)
@@ -79,10 +79,11 @@ hadoop主要由三方面组成:
 	- 其主要功能就是周期性将元数据节点的命名空间镜像文件和修改日志合并，以防日志文件过大。这点在下面会相信叙述。
 	- 合并过后的命名空间镜像文件也在从元数据节点保存了一份，以防元数据节点失败的时候，可以恢复。
 
-###4、举一个简单的例子说明mapreduce是怎么来运行的 ?
-###5、面试的人给你出一些问题,让你用mapreduce来实现？
+### 4、举一个简单的例子说明mapreduce是怎么来运行的 ?
+
+### 5、面试的人给你出一些问题,让你用mapreduce来实现？
       比如:现在有10个文件夹,每个文件夹都有1000000个url.现在让你找出top1000000url。
-###6、hadoop中Combiner的作用?
+### 6、hadoop中Combiner的作用?
 
 一、作用  
 1、**combiner最基本是实现本地key的聚合，对map输出的key进行排序，value进行迭代。**如下所示：
@@ -100,10 +101,10 @@ combine: (K2, list(V2)) → list(K3, V3) ，减轻reduce的负担！reduce: (K3,
 举一个hadoop自带的wordcount例子说明。
 value就是一个叠加的数字，所以map一结束就可以进行reduce的value叠加，而不必要等到所有的map结束再去进行reduce的value叠加。
 
-###7、Map/Reduce中的Partiotioner使用
+### 7、Map/Reduce中的Partiotioner使用
 主要是想reduce的**结果能够根据key再次分类**输出到不同的文件夹中。
 
-###8、必须使用 Java 编写应用程序吗？
+### 8、必须使用 Java 编写应用程序吗？
 不。有几种办法让非 Java 代码与 Hadoop 协同工作。
 
 
@@ -111,7 +112,7 @@ value就是一个叠加的数字，所以map一结束就可以进行reduce的val
 - libhdfs 是一种基于 JNI 的 C 语言版 API（仅用于 HDFS）。
 - Hadoop Pipes 是一种兼容 SWIG 的 C++ API （非 JNI），用于编写 MapReduce 作业。
 
-###9、[Hadoop优化](http://p-x1984.iteye.com/blog/1113410)
+### 9、[Hadoop优化](http://p-x1984.iteye.com/blog/1113410)
 - 注重job重用, 主要是设计key和自定义OutputFormat, 将能合并的mapred job合并.
 - 避免不必要的reduce任务.  
 (1). 假定要处理的数据是排序且已经分区的. 或者对于一份数据, 需要多次处理, 可以先排序分区.  

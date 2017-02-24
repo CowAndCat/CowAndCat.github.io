@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 排序算法
+title: 快排算法
 category: algorithm
 comments: false
 ---

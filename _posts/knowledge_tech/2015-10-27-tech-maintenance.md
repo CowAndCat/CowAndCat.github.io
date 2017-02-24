@@ -1,10 +1,11 @@
 ---
 layout: post
-title: 运维知识
+title: 运维基础知识
 category: tech
 comments: false
 ---
-###1、简述raid0 raid1 raid5 三种工作模式的工作原理及特点。  
+### 1、简述raid0 raid1 raid5 三种工作模式的工作原理及特点。  
+
 RAID 0：连续以位或字节为单位分割数据，并行读/写于多个磁盘上，因此具有很高的数据 传输率，但它没有数据冗余，因此并不能算是真正的RAID 结构。
 
 RAID 0 只是单纯地提高 性能，并没有为数据的可靠性提供保证，而且其中的一个磁盘失效将影响到所有数据。因此， RAID 0 不能应用于数据安全性要求高的场合。
@@ -19,40 +20,44 @@ RAID5：分布式奇偶校验的独立磁盘结构，它的奇偶校验码存在
 
 至少磁盘数分别是2，2，3. RAID10需要4块。
 
-###2、常识题
+### 2、常识题
+
 2.1 Oracle 数据库备份方式    
 
-物理备份：开启网络监听，备份数据库文件。 
-
-RMAN 备份：通过表空间文件在RMAN 模式对ORACLE 数据备份。 
+- 物理备份：开启网络监听，备份数据库文件。 
+- RMAN 备份：通过表空间文件在RMAN 模式对ORACLE 数据备份。 
 
 2.2 如何查看占用端口8080 的进程   
-lsof -i:8080
+
+	lsof -i:8080
 
 2.3 如何用mysql 命令进行备份和恢复？以test 库为例，创建一个备份，并再用此备份 进行恢复。   
 
-mysqldump -u root -p test > test.sql 
+	mysqldump -u root -p test > test.sql 
 
-mysql -u root -p test < test.sql 
+	mysql -u root -p test < test.sql 
 
-//主要考对方msqldump > test.sql 和 mysql < test.sql 
+	//主要考对方msqldump > test.sql 和 mysql < test.sql 
 
 2.4 mysql数据库的备份还原是怎么做的？  
-答：平时采用两种方法来做：  
-1）利用mysql自带的使用工具mysqldump和mysql来备份还原数据库  
-2）利用第三方的mysql管理工具比如：mysqladmin   
-3）停止mysqld服务拷贝数据文件
 
-###3、对现在运维工程师的理解和以及对其工作的认识
+	答：平时采用两种方法来做：  
+	1）利用mysql自带的使用工具mysqldump和mysql来备份还原数据库  
+	2）利用第三方的mysql管理工具比如：mysqladmin   
+	3）停止mysqld服务拷贝数据文件
+
+### 3、对现在运维工程师的理解和以及对其工作的认识
+
 运维工程师在公司当中责任重大，需要保证时刻为公司及客户提供最高、最快、最稳定、最安全的服务。运维工程师的一个小小的失误，很有可能会对公司及客户造成重大损失，因此运维工程师的工作需要严谨及富有创新精神。
 
-###4、Linux启动的大致过程？
-*BIOS自检  
-*运行系统内核并检测硬件从硬盘启动并运行系统的第一个进程init（LILO和GRUB模式）  
-*init读取系统引导配置文件/etc/inittab,并根据运行级别配置服务/etc/rc.d/rc.localLinux系统缺省的运行级别
+### 4、Linux启动的大致过程？
 
-0为停机，机器关闭  
-1为单用户模式，就像Win下的安全模式2为多用户模式，但是没有NFS支持  
-3为完全的多用户模式，是标准的运行级别4保留  
-5图形界面的模式  
-6为重启，运行init6机器就会重启  
+* BIOS自检  
+* 运行系统内核并检测硬件从硬盘启动并运行系统的第一个进程init（LILO和GRUB模式）  
+* init读取系统引导配置文件/etc/inittab,并根据运行级别配置服务/etc/rc.d/rc.localLinux系统缺省的运行级别
+
+	0为停机，机器关闭  
+	1为单用户模式，就像Win下的安全模式2为多用户模式，但是没有NFS支持  
+	3为完全的多用户模式，是标准的运行级别4保留  
+	5图形界面的模式  
+	6为重启，运行init6机器就会重启  

@@ -4,7 +4,7 @@ title: Java 面试题4
 category: java
 comments: false
 ---
-###Java面试题
+### Java面试题
 >http://www.nowcoder.com/ta/review-java
 
 
@@ -138,7 +138,7 @@ wait后进入等待锁定池，使用此对象发出的notify 或 notifyAll 方�
 
     It follows that for any two strings s and t, s.intern() == t.intern() is true if and only if s.equals(t) is true.
 
-###数据结构与算法
+### 数据结构与算法
 1. 九个排序算法，时间复杂度，什么情况下用哪种排序。
 2. 链表
 3. 栈
@@ -148,7 +148,8 @@ wait后进入等待锁定池，使用此对象发出的notify 或 notifyAll 方�
 7. 字符串匹配，kmp算法
 8. 二分查找，hash表
 >理解数据结构原理后，多做题，剑指offer，程序员面试宝典等
-###计算机网络
+
+### 计算机网络
 1. tcp三次握手，四次挥手（常问）
 2. tcp可靠原理，流量控制，拥塞控制
 3. tcp，udp原理
@@ -165,7 +166,8 @@ wait后进入等待锁定池，使用此对象发出的notify 或 notifyAll 方�
 13. Http怎么处理长连接，http有无状态，如何保持状态
 14. Cookie和Session(知道最好)
 >参考书籍《计算机网络》、《HTTP权威指南》
-###操作系统
+
+### 操作系统
 1. 死锁的必要条件，怎么处理死锁。
 2. 进程的几种状态
 3. IPC几种通信方式。

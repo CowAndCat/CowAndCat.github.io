@@ -25,7 +25,7 @@ comments: false
 		├WeakHashMap  
 		└TreeMap
 
-##经验总结
+## 经验总结
 
 * 如果涉及到堆栈，队列等操作，应该考虑用List，对于需要快速插入，删除元素，应该使用LinkedList，如果需要快速随机访问元素，应该使用ArrayList。
 * 如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。
@@ -33,6 +33,7 @@ comments: false
 * 尽量返回接口而非实际的类型，如返回List而非ArrayList，这样如果以后需要将ArrayList换成LinkedList时，客户端代码不用改变。这就是针对抽象编程。
 
 ------------------
+
 ## Collection
 List和Set的父类。  
 **注意**：Java SDK不提供直接继承自Collection的类，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。
@@ -123,6 +124,7 @@ List和Set的父类。
 
 
 ---------------------------
+
 ## List
 
 ### 基本概念  
@@ -163,7 +165,7 @@ List和Set的父类。
 	- Stack继承自Vector，实现一个后进先出的堆栈。
 	- Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop方法，还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。
 
-###相互区别
+### 相互区别
 * Vector和ArrayList
  1. Vector是线程同步的，所以它也是线程安全的，而arraylist是线程异步的，是不安全的。如果不考虑到线程的安全因素，一般用arraylist效率比较高。
  2. 如果集合中的元素的数目大于目前集合数组的长度时，vector增长率为目前数组长度的100%,而arraylist增长率为目前数组长度的50%.如过在集合中使用数据量比较大的数据，用vector有一定的优势。
@@ -176,7 +178,9 @@ List和Set的父类。
 
 
 ---------------------------
+
 ## Set
+
 ### 基本概念
 Set是一种不包含重复的元素的Collection，即任意的两个元素e1和e2都有e1.equals(e2)=false，Set最多有一个null元素。
 
@@ -217,11 +221,13 @@ Set是一种不包含重复的元素的Collection，即任意的两个元素e1�
 
 
 ---------------------------
+
 ## Map
+
 ### 基本概念
 Map没有继承Collection接口，Map提供key到value的映射。
 
-###实现类型
+### 实现类型
 
 1. HashMap
  - HashMap和Hashtable类似，不同之处在于HashMap是非同步的；
@@ -283,8 +289,10 @@ Map没有继承Collection接口，Map提供key到value的映射。
     }
 
 ---------------------------
+
 ## Queue
-###实现类型：
+
+### 实现类型：
 
 1. PriorityQueue <T\>
 2. LinkedList
@@ -308,7 +316,7 @@ remove和poll方法都删除并返回Queue中的头元素（注意，并不是�
 
 element和peek返回但不删除Queue中的头元素，它们的区别类似remove与poll。
 
-###常用方法
+### 常用方法
 
 	queue.add(element); //注意：没有push方法或put方法
 	queue.offer(element);///与add的区别：
@@ -323,7 +331,7 @@ element和peek返回但不删除Queue中的头元素，它们的区别类似remo
 	queue.removeAll(collection); //删除集合中的元素
 	queue.toArray()；
 
-###遍历
+### 遍历
 
 	//集合方式遍历，元素不会被移除
     for (Integer element : queue) {
@@ -337,12 +345,13 @@ element和peek返回但不删除Queue中的头元素，它们的区别类似remo
 
 
 ---------------------------
+
 ## Stack
 
-###初始化类型：
+### 初始化类型：
 Stack
 
-###常用方法：
+### 常用方法：
 
 	stack.push(element);
 	stack.peek();
@@ -363,7 +372,7 @@ Java中的stack都不是严格意义上的stack了，例如可以：
 	stack.setElementAt(element, index);
 	stack.elementAt(index);    //返回element类型
 
-###遍历方法：
+### 遍历方法：
 
 	Stack<Integer> s = new Stack<Integer>();
     for (int i = 0; i < 10; i++) {
@@ -382,6 +391,7 @@ Java中的stack都不是严格意义上的stack了，例如可以：
     }
 
 ---------------
+
 ## Arrays
 Java 2 在 java.util 中新增加了一个叫做 Arrays 的类。这个类提供了各种在进行数组运算 时很有用的方法。尽管这些方法在技术上不属于类集框架，但它们提供了跨越类集和数组的桥梁。
 
@@ -392,6 +402,7 @@ Java 2 在 java.util 中新增加了一个叫做 Arrays 的类。这个类提供
 		static int binarySearch(int[ ] array, int value)
 
 ---------------
+
 ## Enumeration
 Enumeration(更像是数据类型） 接口定义了可以对一个对象的类集中的元素进行枚举（一次获得一个）的 方法。这个接口尽管没有被摈弃，但已经被 Iterator 所替代。  
 
@@ -407,6 +418,7 @@ nextElement()方法将枚举中的下一个对象做为一个类属 Object
 将那个对象转换为包含在枚举内的对象类型.
 
 ------------
+
 ## Properties
 属性（Properties）是 Hashtable 的一个子类。它用来保持值的列表，在其中关键字和值 都是字符串（String）。
 
@@ -416,6 +428,7 @@ Properties 类的一个有用的功能是可以指定一个默认属性，如果
 定——如 getProperty(“name”，“default value”)。如果“name”值没有找到，则返回“default value”。
 
 --------------------
+
 ## Dictionary
 Dictionary 类是一个抽象类，用来存储键/值对，作用和Map类相似。
 
@@ -424,7 +437,8 @@ Dictionary 类是一个抽象类，用来存储键/值对，作用和Map类相�
 Dictionary类已经过时了。在实际开发中，你可以实现Map接口来获取键/值的存储功能。
 
 -------------
-##BitSet（位集合）
+
+## BitSet（位集合）
 位集合类实现了一组可以单独设置和清除的位或标志。
 
 该类在处理一组布尔值的时候非常有用，你只需要给每个值赋值一"位"，然后对位进行适当的设置或清除，就可以对布尔值进行操作了。
@@ -434,6 +448,7 @@ Dictionary类已经过时了。在实际开发中，你可以实现Map接口来�
 详细点击:[http://www.runoob.com/java/java-bitset-class.html](http://www.runoob.com/java/java-bitset-class.html)
 
 ------------------------
+
 ## 常见面试题
 1. ArrayList和Vector有什么区别？HashMap和HashTable有什么区别？  
 A: Vector和HashTable是线程同步的（synchronized）。性能上，ArrayList和HashMap分别比Vector和Hashtable要好。
@@ -460,8 +475,8 @@ A: Vector和HashTable是线程同步的（synchronized）。性能上，ArrayLis
 4. stack和queue的相互实现  
 	stack实现queue:用两个stack实现，一个管入队（enqueue），一个管出队（dequeue)；如果出队为空，将enqueue中的值放到dequeue中。  
 	queue实现stack:两个queue，一个充当临时的队列，每次top或pop的时候，将存储的queue倒入到tmpqueue中，记录下最后一个，返回或删除，之后再倒回去。
-(TBC)
-### 参考:  
+
+### 参考
 1. [Java集合的Stack、Queue、Map的遍历](http://lavasoft.blog.51cto.com/62575/181781/)  
 2. [JAVA集合小结](http://www.blogjava.net/EvanLiu/archive/2007/11/12/159884.html)  
 3. [Java集合类详解](http://blog.csdn.net/softwave/article/details/4166598)  

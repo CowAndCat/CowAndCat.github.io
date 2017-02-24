@@ -1,10 +1,10 @@
 ---
 layout: post
-title: sql笔试题
+title: SQL笔试题2
 category: sql
 comments: false
 ---
-##1、sql查询一段日期内的某个时间段的数据量
+## 1、sql查询一段日期内的某个时间段的数据量
 例如：想查询BOOK_DATE在2010-06-01到2010-08-01之间的13点到15点之间的数据，如何实现？
 
 解决方案：
@@ -13,7 +13,7 @@ comments: false
 	where (convert(char(10), BOOK_DATE) between '2010-06-01' and '2010-08-01')
 	and (convert(char(8), convert(datetime, BOOK_DATE, 120) , 108) between '13:00:00' and '15:00:00')
 
-##2、查询手机消息发送情况，按地区和时段。
+## 2、查询手机消息发送情况，按地区和时段。
 数据：  
 
 	msgCode status region stime  
@@ -41,7 +41,7 @@ comments: false
 	WHERE CAST(stime AS TIME) BETWEEN '08:00:00' AND '20:00:00'
 	GROUP BY region;
 
-##3、选出上个月上海地区买帽子的前10个人名字
+## 3、选出上个月上海地区买帽子的前10个人名字
 数据表和数据：
 
 User:

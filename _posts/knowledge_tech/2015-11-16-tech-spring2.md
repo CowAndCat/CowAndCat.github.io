@@ -1,10 +1,10 @@
 ---
 layout: post
-title: spring配置
+title: spring配置Bak
 category: tech
 comments: false
 ---
-##一个标准的Spring配置文件：applicationContext.xml
+## 一个标准的Spring配置文件：applicationContext.xml
 
 
 	<?xml version="1.0" encoding="UTF-8"?>

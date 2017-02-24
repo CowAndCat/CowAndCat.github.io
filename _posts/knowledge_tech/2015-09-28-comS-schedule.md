@@ -15,7 +15,7 @@ comments: false
 
 ### 2. 调度算法分类
 
-####1、 先来先服务(FCFS)
+#### 1、 先来先服务(FCFS)
 
 先来先服务（FCFS, First Come First Serve）是最简单的调度算法，按先后顺序进行调度。
 
