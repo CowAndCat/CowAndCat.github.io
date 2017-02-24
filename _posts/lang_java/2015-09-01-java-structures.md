@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java中的集合类Collection，List, Set, Map; Array, Stack，Queue等。
+title: Java中的集合类Collection，List, Set, Map; Array, Stack，Queue等
 category: java
 comments: false
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java中多线程。
+title: Java中多线程
 category: java
 comments: false
 ---

@@ -58,8 +58,8 @@ nav:
     url: /navigations/contact.html
   - text: Links
     url: /navigations/links.html
-  - text: Online CV
-    url: /Resume/resume_cn.html
+#  - text: Online CV
+#    url: /Resume/resume_cn.html
 
 #Author config
 author:
