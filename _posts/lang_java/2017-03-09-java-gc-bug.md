@@ -27,7 +27,7 @@ comments: false
 	[running]mqq@10.242.50.116:~$ jstack 28296 |grep 'UserBase'
 	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-25" prio=10 tid=0x00007f6910005800 nid=0x6f77 waiting on condition [0x00007f68795d4000]
 	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-24" prio=10 tid=0x00007f6918005800 nid=0x6f76 waiting on condition [0x00007f68796d5000]
-	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-23" prio=10 tid=0x00007f691c005800 nid=0x6f75 waiting on condition [0x00007f68797d6000]
+	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-23" prio=10 tid=0x00007f691c005800 nid=0x6f7夫5 waiting on condition [0x00007f68797d6000]
 
 
 
@@ -105,7 +105,7 @@ jstat -gc 28296 250 5
 	156032.0 156032.0  0.0   2812.9 1248512.0 625968.4 6828032.0   70528.6   31984.0 19790.3    131    0.654   2      0.409    1.063
 	156032.0 156032.0  0.0   2812.9 1248512.0 650677.8 6828032.0   70528.6   31984.0 19790.3    131    0.654   2      0.409    1.063
 
-或者这样查看一条：
+或者查看一条：
 
 jstat -gc 28296
 
@@ -113,9 +113,9 @@ jstat -gc 28296
 
 如果带上live则只统计活对象
 
-jmap -histo:live 28296 | less
+	jmap -histo:live 28296 | less
 
-### 4.1 小知识
+> 小知识:
 less和more具有相同功能，控空格可查看下一页，但less能支持用上下键进行翻滚
 
 
@@ -176,3 +176,7 @@ class name是对象类型，说明如下：
 	Z  boolean
 	[  数组，如[I表示int[]
 	[L+类名 其他对象
+
+## 5. 最后，如果还是看不出问题，可以调大heap再观察一段时间
+
+一般来说，问题可能是内存泄漏，也可能是因为服务对象太多，导致空间不足，引发频繁地gc。
