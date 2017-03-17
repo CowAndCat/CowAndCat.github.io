@@ -12,6 +12,7 @@ comments: false
 
 	ps aux|grep java
 
+---
 
 	[running]mqq@10.242.50.116:~$ jps
 	18648 Main

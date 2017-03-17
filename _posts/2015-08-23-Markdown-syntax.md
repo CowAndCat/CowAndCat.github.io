@@ -28,3 +28,25 @@ comments: false
  - 排列时数字编号没用；
  - 评论模块还是不太好去除；
  - 不支持表格插入
+ 
+## 7. 表格来啦
+	| Tables        | Are           | Cool  |
+	| ------------- |:-------------:| -----:|
+	| col 3 is      | right-aligned | $1600 |
+	| col 2 is      | centered      |   $12 |
+	| zebra stripes | are neat      |    $1 |
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+发现没有，可以居中，居左，居右。。
+
+### 8. 分割符号
+三个 `---` 或 `***`,如：
+
+---
+
+***
