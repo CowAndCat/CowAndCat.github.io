@@ -5,4 +5,4 @@ category: nlp
 comments: false
 ---
 
-# 研究是一项挑战（谁说要有光，就有了光来着？）
+# 研究应该伴吾残生
