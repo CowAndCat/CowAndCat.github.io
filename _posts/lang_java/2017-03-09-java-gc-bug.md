@@ -8,7 +8,7 @@ comments: false
 
 ## 1. 先用jps 和 jstack定位pid
 
-推荐用如下命令代：
+推荐用如下命令代替：
 
 	ps aux|grep java
 
