@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 倒排索引
-category: nlp
+category: NLP
 comments: false
 ---
 
