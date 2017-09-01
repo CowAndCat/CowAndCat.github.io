@@ -40,6 +40,9 @@ comments: false
 	- Github: [Collect and classify android open source projects](https://github.com/Trinea/android-open-project)
 	- [Android 开源库获取途径整理](http://www.trinea.cn/android/android-open-project-summary/)
 	- [http://p.codekk.com/](http://p.codekk.com/)
+	- [完整开源APP](http://www.jianshu.com/p/31c0b42820fb)
+	- [gank.io Android 客户端](http://gank.io/download)
+	- [JuheNews](https://github.com/onlyloveyd/JuheNews)
 
 10. [Gradle基础](http://stormzhang.com/devtools/2014/12/18/android-studio-tutorial4/)  
 	Gradle是一种依赖管理工具，基于Groovy语言，面向Java应用为主，它抛弃了基于XML的各种繁琐配置，取而代之的是一种基于Groovy的内部领域特定（DSL）语言。

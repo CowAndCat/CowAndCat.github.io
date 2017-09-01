@@ -41,6 +41,26 @@ Guava是一个 Google 的基于java1.6的类库集合的扩展项目，包括 co
 3. Powerful collection utilities（强大的集合工具类）： java.util.Collections 中未包含的常用操作工具类
 4. Extension utilities（扩展工具类）: 给 Collection 对象添加一个装饰器，或实现迭代器
 
+Multiset占据了List和Set之间的一个灰色地带：允许重复，但是不保证顺序。   
+常见使用场景：Multiset有一个有用的功能，就是跟踪每种对象的数量，所以你可以用来进行数字统计。 常见的普通实现方式如下：
+
+	@Test
+    public void testMultsetWordCount(){
+        String strWorld="wer|dfd|dd|dfd|dda|de|dr";
+        String[] words=strWorld.split("\\|");
+        List<String> wordList=new ArrayList<String>();
+        for (String word : words) {
+            wordList.add(word);
+        }
+        Multiset<String> wordsMultiset = HashMultiset.create();
+        wordsMultiset.addAll(wordList);
+        for(String key:wordsMultiset.elementSet()){
+            System.out.println(key+" count："+wordsMultiset.count(key));
+        }
+        // 就这样输出了相同key的元素数量。
+    }
+
+
 ## 3.  缓存
 本地缓存，可以很方便的操作缓存对象，并且支持各种缓存失效行为模式。
 
@@ -128,7 +148,114 @@ ListenableFuture 中的基础方法是**addListener(Runnable, Executor)**, 该�
 
 反之更简单的工作是，同样可以满足“fan-in”(扇入，指应用程序模块之间的层次调用情况，设计良好的软件结构，通常顶层扇出比较大，中间扇出小，底层模块则有大扇入。）场景，促发ListenableFuture 获取（get）计算结果，同时其它的Futures也会尽快执行：可以参考 [the implementation of Futures.allAsList](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/src-html/com/google/common/util/concurrent/Futures.html#line.1276) 。
 
-# 四、参考
+# 四、Preconditions 
+Guava类库中提供了一个作参数检查的工具类--Preconditions类， 该类可以大大地简化我们代码中对于参数的预判断和处理，验证方法输入参数变得更加简单优雅.
+
+常用方法有：
+
+1 .checkArgument(boolean) ：  
+　　功能描述：检查boolean是否为真。 用作方法中检查参数  
+　　失败时抛出的异常类型: IllegalArgumentException
+
+2.checkNotNull(T)：       
+　　功能描述：检查value不为null， 直接返回value；  
+　　失败时抛出的异常类型：NullPointerException  
+checkNotNull在验证通过后直接返回, 可以这样方便地写代码: this.field = checkNotNull(field).
+
+3.checkState(boolean)：  
+　　功能描述：检查对象的一些状态，不依赖方法参数。 例如， Iterator可以用来next是否在remove之前被调用。  
+　　失败时抛出的异常类型：IllegalStateException
+
+# 五、复写的Objects常用方法
+复写的方法有：equal， hashCode， toString， compare/compareTo方法。 
+
+equals是一个经常需要覆写的方法， 可以查看Object的equals方法注释， 对equals有几个性质的要求：  
+ 1. 自反性reflexive：任何非空引用x，x.equals(x)返回为true；  
+ 2. 对称性symmetric：任何非空引用x和y，x.equals(y)返回true当且仅当y.equals(x)返回true；  
+ 3. 传递性transitive：任何非空引用x和y，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equals(z)返回true；  
+ 4. 一致性consistent：两个非空引用x和y，x.equals(y)的多次调用应该保持一致的结果，（前提条件是在多次比较之间没有修改x和y用于比较的相关信息）；  
+ 5. 对于所有非null的值x， x.equals(null)都要返回false。 (如果你要用null.equals(x)也可以，会报NullPointerException)。
+
+当我们要覆写的类中某些值可能为null的时候，就需要对null做很多判断和分支处理。 使用Guava的Objects.equal方法可以避免这个问题， 使得equals的方法的覆写变得更加容易， 而且可读性强，简洁优雅。
+
+当覆写（override）了equals()方法之后，必须也覆写hashCode()方法，反之亦然。 Guava提供给我们了一个更加简单的方法--Objects.hashCode(Object ...)， 这是个可变参数的方法，参数列表可以是任意数量，所以可以像这样使用Objects.hashCode(field1， field2， ...， fieldn)。非常方便和简洁。
+
+toString 借助一个函数 toStringHelper，构造一个内部对象ToStringHelper, 然后用add(name,value)函数可以灵活地选择字段，输出toString格式的字符串。
+
+比较用到了一个链式比较：ComparisonChain.  
+ComparisonChain是一个lazy的比较过程， 当比较结果为0的时候， 即相等的时候， 会继续比较下去， 出现非0的情况， 就会忽略后面的比较。ComparisonChain实现的compare和compareTo在代码可读性和性能上都有很大的提高。
+
+一个例子：
+
+	public class Student implements Comparable<Student>{
+	    public String name;
+	    public int age;
+	    public int score;
+	    
+	    Student(String name, int age,int score) {
+	        this.name = name;
+	        this.age = age;
+	        this.score=score;
+	    }
+	    
+	    @Override
+	    public int hashCode() {
+	        return Objects.hashCode(name, age);
+	    }
+	    
+	    
+	    @Override
+	    public boolean equals(Object obj) {
+	        if (obj instanceof Student) {
+	            Student that = (Student) obj;
+	            return Objects.equal(name, that.name)
+	                    && Objects.equal(age, that.age)
+	                    && Objects.equal(score, that.score);
+	        }
+	        return false;
+	    }
+	    
+	    @Override
+	    public String toString() {
+	        return Objects.toStringHelper(this)
+	                .addValue(name)
+	                .addValue(age)
+	                .addValue(score)
+	                .toString();
+	    }
+	    
+	    
+	    @Override
+	    public int compareTo(Student other) {
+	        return ComparisonChain.start()
+	        .compare(name, other.name)
+	        .compare(age, other.age)
+	        .compare(score, other.score, Ordering.natural().nullsLast())
+	        .result();
+	    }
+	}
+
+# 六、 Ordering——犀利的比较器
+
+Code:
+
+	Ordering<String> naturalOrdering = Ordering.natural();
+	List<String> list = Lists.newArrayList();
+	list = naturalOrdering.sortedCopy(list);
+
+
+除了natural还有其他的方法：
+
+- usingToString() ：使用toString()返回的字符串按字典顺序进行排序；
+- arbitrary() ：返回一个所有对象的任意顺序。
+- reverse(): 返回与当前Ordering相反的排序:
+- nullsFirst(): 返回一个将null放在non-null元素之前的Ordering，其他的和原始的Ordering一样；
+- nullsLast()：返回一个将null放在non-null元素之后的Ordering，其他的和原始的Ordering一样；
+-  ...
+
+# Final、参考
 >[Google Guava官方教程（中文版）](http://ifeve.com/google-guava/)
 
->[http://ifeve.com/google-guava-listenablefuture/](http://ifeve.com/google-guava-listenablefuture/)
+>[http://ifeve.com/google-guava-listenablefuture/](http://ifeve.com/
+
+> [http://www.cnblogs.com/peida/p/Guava.html](http://www.cnblogs.com/peida/p/Guava.html)

@@ -27,3 +27,8 @@ comments: false
 
 - EmEditor  
 	能瞬间打开以G为容量单位的文本文件。
+
+## 四、备忘
+
+- Travis CI 免费的集成测试环境
+可以与github项目结合。
