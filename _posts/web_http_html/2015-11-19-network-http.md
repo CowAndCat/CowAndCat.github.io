@@ -221,3 +221,10 @@ HTTP1.1的客户端和缓存必须将其他非法的日期格式（包括0）看
 　　8. 客户端解密信息
 
 　　客户端用之前生成的私钥解密服务段传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。
+
+使用HTTPS的好处： 1. 安全； 2. 不容易被国内电信运营商绑架，插入一些弹窗广告；3. 提高在搜索引擎中的rank；4. 待发现
+
+**Let’s Encrypt** is a free, automated, and open Certificate Authority.  
+Let’s Encrypt 是一个于2015年推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书。
+
+加HTTPS可以参考：https://coolshell.cn/articles/18094.html
