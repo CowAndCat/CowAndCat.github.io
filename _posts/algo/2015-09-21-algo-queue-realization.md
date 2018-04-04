@@ -10,82 +10,76 @@ comments: false
 
 代码如下：
 
-
 	public class ArrayQueue implements QueueADT {
 
-    private Object[] contents;//将队首固定在数组的0位置
-    private int rear;//指向下一个入队的位置，且表示队列的长度
-    private static int SIZE = 10;
+        private Object[] contents;//将队首固定在数组的0位置
+        private int rear;//指向下一个入队的位置，且表示队列的长度
+        private static int SIZE = 10;
 
+        public static void main(String[] args) {
 
-    public static void main(String[] args) {
+            ArrayQueue queue = new ArrayQueue();
 
-        ArrayQueue queue = new ArrayQueue();
+            System.out.println("依次将0到24入队，然后连续出队10次");
+            for(int i = 0;i < 25;i++)
+                queue.enqueue(i);
+            for(int i = 0;i < 10;i++)
+                queue.dequeue();
 
-        System.out.println("依次将0到24入队，然后连续出队10次");
-        for(int i = 0;i < 25;i++)
-            queue.enqueue(i);
-        for(int i = 0;i < 10;i++)
-            queue.dequeue();
-
-        System.out.println("队列的大小为： " + queue.size());
-        System.out.println("队列为空吗？： " + queue.isEmpty());
-        System.out.println("队列的第一个元素为： " + queue.first());
-    }
-
-
-
-    public ArrayQueue()
-    {
-        contents = new Object[SIZE];
-        rear = 0;
-    }
-
-    public void expand()
-    {
-        Object[] larger = new Object[size()*2];
-        for(int index = 0;index < rear;index++)
-            larger[index] = contents[index];
-
-        contents = larger;
-    }
-
-
-    public int size() {
-        return rear;
-    }
-
-    public boolean isEmpty() {    
-        return (size() == 0);
-    }
-
-    public void enqueue(Object element) {
-        if(rear == contents.length)
-            expand();
-        contents[rear] = element;
-        rear++;
-    }
-
-    public Object dequeue(){
-        if(isEmpty())
-        {
-            System.out.println("队列为空");
-            System.exit(1);
+            System.out.println("队列的大小为： " + queue.size());
+            System.out.println("队列为空吗？： " + queue.isEmpty());
+            System.out.println("队列的第一个元素为： " + queue.first());
         }
 
-        Object result = contents[0];
+        public ArrayQueue()
+        {
+            contents = new Object[SIZE];
+            rear = 0;
+        }
 
-        for(int index = 0;index < rear;index++)
-                contents[index] = contents[index+1];
-        rear--;
+        public void expand()
+        {
+            Object[] larger = new Object[size()*2];
+            for(int index = 0;index < rear;index++)
+                larger[index] = contents[index];
 
-        return result;        
-    }
+            contents = larger;
+        }
 
+        public int size() {
+            return rear;
+        }
 
-    public Object first() {
-        return contents[0];
-    }
+        public boolean isEmpty() {    
+            return (size() == 0);
+        }
+
+        public void enqueue(Object element) {
+            if(rear == contents.length)
+                expand();
+            contents[rear] = element;
+            rear++;
+        }
+
+        public Object dequeue(){
+            if(isEmpty())
+            {
+                System.out.println("队列为空");
+                System.exit(1);
+            }
+
+            Object result = contents[0];
+
+            for(int index = 0;index < rear;index++)
+                    contents[index] = contents[index+1];
+            rear--;
+
+            return result;        
+        }
+
+        public Object first() {
+            return contents[0];
+        }
 
 	}
 
@@ -100,8 +94,6 @@ comments: false
 	    private int front,rear;//front为队头下标，rear为队尾的下一个元素的下标
 	    private int count;//标记队列元素个数
 	    private static int SIZE = 10;
-
-
 
 	    public static void main(String[] args) {
 
@@ -126,7 +118,6 @@ comments: false
 	        System.out.println("队尾元素下标为： " + circlequeue.rear);
 	        System.out.println("队列大小为： " + circlequeue.count);
 	    }
-
 
 	    public CircularArrayQueue()
 	    {
