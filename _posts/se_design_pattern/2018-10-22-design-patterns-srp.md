@@ -3,7 +3,7 @@ layout: post
 title: 设计模式之单一职责原则、开放-封闭原则、里氏替换、依赖倒置
 category: design_pattern
 comments: false
---
+---
 
 # 一、单一职责原则（SRP）
 
