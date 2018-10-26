@@ -1,9 +1,10 @@
 ---
 layout: post
-title: java List转List: Lists.transform
+title: java List转List-Lists.transform
 category: java
 comments: false
 ---
+
 java支持List到List互转，只要实现transform里面的function函数参数。
 
     public List<BuInfo> getBusinessUnitByBGId(int bgId) {

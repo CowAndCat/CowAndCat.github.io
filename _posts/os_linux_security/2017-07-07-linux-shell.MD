@@ -440,4 +440,5 @@ test str1 != str2   |判定str1 是否不等于str2 ，若相等，则回传fals
 - echo "scale=10;4*a(1)" | bc -lq #输出pi 
 
 # Ref
->[鸟哥的Linux私房菜](http://linux.vbird.org/linux_basic/0320bash.php#bash)
+> [鸟哥的Linux私房菜](http://linux.vbird.org/linux_basic/0320bash.php#bash)
+> [Linux命令之trap - 在脚本中处理信号](http://codingstandards.iteye.com/blog/836588)

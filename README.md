@@ -59,12 +59,15 @@ category: 技术
 ## 其他
 
 如果想本地调试生成的网页，可以搭建jekyll运行环境. 参考：
-[http://www.2cto.com/os/201411/351818.html](http://www.2cto.com/os/201411/351818.html)
+    
+- MAC: [https://www.jianshu.com/p/07064eb79740](https://www.jianshu.com/p/07064eb79740)
+- Windows: [http://www.2cto.com/os/201411/351818.html](http://www.2cto.com/os/201411/351818.html)
 
 如果遇到错误，可以参考：
-[https://ruby-china.org/topics/29323](https://ruby-china.org/topics/29323)
-[http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/](http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/)
-[https://gems.ruby-china.org/](https://gems.ruby-china.org/)
+
+- [https://ruby-china.org/topics/29323](https://ruby-china.org/topics/29323)
+- [http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/](http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/)
+- [https://gems.ruby-china.org/](https://gems.ruby-china.org/)
 
 其他插件：
 gem install redcarpet jekyll-paginate

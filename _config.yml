@@ -118,7 +118,7 @@ username: haluomao
 baseurl:
 safe: false
 highlighter: rouge #pygments
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 
 title: MFG's Blog
 description: Good Good Coding, Day Day Up!
