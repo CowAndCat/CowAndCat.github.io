@@ -4,32 +4,35 @@ title: php面试题1
 category: php
 comments: false
 ---
-##1、基础面试题
-###1.1 如何设置form表单中的只读属性？
+## 1、基础面试题
+
+### 1.1 如何设置form表单中的只读属性？
 - 利用readonly 设置指定内容的只读属性
 - 利用disabled 实现
 
-###1.2 在什么情况下，$name 与 $_POST['name']可以通用？
+### 1.2 在什么情况下，$name 与 $_POST['name']可以通用？
+
 在php.ini中register_globals=On时，它们才都可以获取form表单中表单元素name的值。
+
 
 但是不建议开启这个全局变量，因为会带来安全隐患或其他问题。
 
-###1.3 CSS的理解
+### 1.3 CSS的理解
 CSS是W3C协议提出的层叠样式表（Cascading Style Sheet），为了弥补HTML在显示属性设定上的不足而制定的。
 
 最大的用途是：实现内容和表现形式的分离，改变网页的整体表现形式，更容易进行外观维护，使HTML文档代码更为简练，缩短浏览器的加载时间。
 
-###1.4 插入CSS的方式
+### 1.4 插入CSS的方式
 - 在标签内部定义style属性
 - 在head区域，定义一对`<style></style>`标记，在标记内部利用标签名称、类选择符、id选择符设置属性。
 - 创建.css文件定义样式，之后再HTML页面中利用`<link>`标签引入文件。如：`<link type="text/css" rel="stylesheet" href="PATH">`
 
-###1.5 在IE6下解决双倍边距的问题
+### 1.5 在IE6下解决双倍边距的问题
 IE6下的bug，margin-left:10px会解析成20px。
 
 加上`display:inline;`.
 
-###1.6 解决超链接被点击后hover样式不出现的问题？
+### 1.6 解决超链接被点击后hover样式不出现的问题？
 只要对超链接样式属性进行正确的排序即可。顺序如下：
 	
 	link-visited-hover-action
@@ -41,18 +44,18 @@ IE6下的bug，margin-left:10px会解析成20px。
 	a:hover{...}
 	a:action{...}
 
-###1.7 定义1px左右高度的容器
+### 1.7 定义1px左右高度的容器
 通过CSS样式定义的1px高度的区块往往是不能正常显示的，解决的方法如下：
 
 在div标签中控制文字的行高，超出行高的内容设置为不显示：
 	
 	div{overflow:hidden|zoom:0.08 | line-height:1px;border:1px solid black}
 
-###1.8 `<span>`和`<div>`的区别
+### 1.8 `<span>`和`<div>`的区别
 - `<span>`是在HTML4.0时才加入，后者在3.0就有了。
 - 同样作用于网页布局中，span是属于内联的，一般用于小模块的样式内联到HTML中；div是块级元素，用于组合大块的代码。
 
-###1.9 编写代码，当鼠标划过文本框，自动选择文本框中的内容
+### 1.9 编写代码，当鼠标划过文本框，自动选择文本框中的内容
 `<input id="text" type="text" value="text">`
 
 使用select方法：
@@ -63,7 +66,7 @@ IE6下的bug，margin-left:10px会解析成20px。
 
 `<input id="text" type="text" value="text" onclick="this.value=''">`
 
-###1.10 php中文乱码解决
+### 1.10 php中文乱码解决
 只要保证php.in、页面编码、文件编码（这个容易忽略）三者编码保持一致。
 用utf-8时，文件需要保持为utf-8，并消息BOM格式，页面上设置：
 
@@ -85,8 +88,10 @@ utf-8与utf-8(无BOM)的区别 ：简单来说，BOM是用来表示文件字节�
 
 PHP不支持BOM。PHP在设计时就没有考虑BOM的问题，也就是说他不会忽略UTF-8编码的文件开头BOM的那三个字符。
 
-##2、PHP基础面试题
-###2.1 PHP的含义
+## 2、PHP基础面试题
+
+### 2.1 PHP的含义
+
 是PHP Hypertext Preprocessor（PHP超文本预处理器）的缩写，是一种服务器端的、开源的、跨平台的、HTML嵌入式的脚步语言，语法混合了C、Java和Perl的特点，适合Web开发。
 
 ###2.2 PHP的优劣势
@@ -98,7 +103,7 @@ PHP不支持BOM。PHP在设计时就没有考虑BOM的问题，也就是说他�
 它深邃到足以运行最大的社交网络（facebook）！
 而它的易用程度足以成为初学者的首选服务器端语言！
 
-###2.3 类型转换
+### 2.3 类型转换
 用settype函数：
 	`settype($var, 'bool');`
 
@@ -111,7 +116,7 @@ gettype获取类型
 
 ‘===’比较运算符，表示数值上相等，而且两者的类型也一样
 
-###2.4 PHP基础
+### 2.4 PHP基础
 - 在 PHP 中，所有用户定义的函数、类和关键词（例如 if、else、echo 等等）都对大小写**不敏感**；（ECHO  和echo是一样的）所有变量都对大小写敏感。（ $color、$COLOR 以及 $coLOR 被视作三个不同的变量）
 - Local 和 Global 作用域：
 函数之外声明的变量拥有 Global 作用域，**只能**在函数以外进行访问。  
@@ -213,7 +218,7 @@ mktime() 函数返回日期的 Unix 时间戳:`mktime(hour,minute,second,month,d
 不过，include 与 require 有一个巨大的差异：如果用 include 语句引用某个文件并且 PHP 无法找到它，脚本会继续执行.
 
 
-###2.5 php表单、cookie
+### 2.5 php表单、cookie
 	
 	<html>
 	<body>
@@ -261,8 +266,7 @@ setcookie() 函数用于设置 cookie。`setcookie(name, value, expire, path, do
 - 如果您的应用程序涉及不支持 cookie 的浏览器，您就不得不采取其他方法在应用程序中从一张页面向另一张页面传递信息。一种方式是从表单传递数据（有关表单和用户输入的内容，稍早前我们已经在本教程中介绍过了）。
 
 
-
-##3、PHP中利用JQuery的Ajax实现功能
+## 3、PHP中利用JQuery的Ajax实现功能
 
 Asynchronous JavaScript And XML（异步 JavaScript 及 XML）
 
@@ -309,8 +313,8 @@ Asynchronous JavaScript And XML（异步 JavaScript 及 XML）
 	}
 	?>
 
-##4、PHP基础
-###4.1 程序的运行结果
+## 4、PHP基础
+### 4.1 程序的运行结果
 
 	<?php
 	$strA=null;
@@ -324,16 +328,16 @@ Asynchronous JavaScript And XML（异步 JavaScript 及 XML）
 
 结果都是“相等”，null和false都属于空值，''和0依然是空。
 
-###4.2 大小写
+### 4.2 大小写
 PHP在定义变量的时候、获取变量的时候是不分大小写的，获取form表单中的值时是区分大小写的。
 
-###4.3 单双引号
+### 4.3 单双引号
 都是定义字符串的方式。
 
 单引号包含的变量按普通字符串输出；
 
 双引号所包含的变量会自动被替换成实际数值。
-###4.4 操作符优先级
+### 4.4 操作符优先级
 '.'优先级高于'+',如下面的程序
 
 	<?php echo 'Test'.1+2.'45';?>
@@ -362,7 +366,7 @@ PHP在定义变量的时候、获取变量的时候是不分大小写的，获�
 
 php不会严格检验传入的变量类型，也可以将变量自由的转换类型。
 
-###4.7 PHP 重定向
+### 4.7 PHP 重定向
 是header函数，不是redirect()!!
 
 重定向方法总结：  
@@ -372,13 +376,13 @@ php不会严格检验传入的变量类型，也可以将变量自由的转换�
 
 header()函数必须放在php程序的开头部分，而且之前不能有另外的 header() 函数或者 setcookie() 被调用，如果是带有网页输出，本语句必须放在 <HEAD></HEAD>标记之前。
 
-###4.8 `mysql_fetch_row()`和`mysql_fetch_array()`
+### 4.8 `mysql_fetch_row()`和`mysql_fetch_array()`
 前者返回的是数字索引数组，只能通过数字索引获取元素值；
 
 后者返回关联数组，既能通过数字，又能通过字符串索引来获取元素值。
 
 
-###4.9 php中的静态变量和全局变量
+### 4.9 php中的静态变量和全局变量
 全局变量：定义在所有函数以外的变量，函数内部通过两种方式访问全局变量：
 
 	global $gvar;
@@ -386,14 +390,14 @@ header()函数必须放在php程序的开头部分，而且之前不能有另外
 
 静态变量：能够在函数调用之后仍保留变量值，当再次回到其作用域时，又可以继续使用原来的值。
 
-###4.10 echo(),print()和print_r()区别
+### 4.10 echo(),print()和print_r()区别
 print：只能打印简单类型变量值
 
 print_r:打印复杂类型变量的值（如数组、对象）
 
 echo：输出一个或多个字符串
 
-###4.11 中文字符串截取(mb_substr)
+### 4.11 中文字符串截取(mb_substr)
 `mb_substr( $str, $start, $length, $encoding ) `
 
 	<?php 
@@ -406,7 +410,7 @@ echo：输出一个或多个字符串
 
 `mb_strlen( $str, $encoding ) `
 
-###4.12 其他字符串操作
+### 4.12 其他字符串操作
 - explode()	把字符串打散为数组。
 - implode()	返回由数组元素组合成的字符串。别名：join()
 - htmlspecialchars_decode()	把一些预定义的 HTML 实体转换为字符。
@@ -415,22 +419,23 @@ echo：输出一个或多个字符串
 - printf()	输出格式化的字符串。
 - trim()	移除字符串两侧的空白字符和其他字符。
  
-###4.13 php 5的构造函数和析构函数
+### 4.13 php 5的构造函数和析构函数
 __construct & __destruct
 
 `parent::`调用父类的方法，如`parent::__construct()`
 
 `self`——用于在类内引用静态的成员属性和方法。
 
-###4.14 错误与异常
+### 4.14 错误与异常
 `error_reporting(2047);`//输出所有错误和警告，2047即E_ALL  
 `display_errors` 默认是NO，控制脚本执行期间出现的错误信息是否显示给用户。
 
-###4.15 fopen()和@fopen()的区别
+### 4.15 fopen()和@fopen()的区别
 @用于屏蔽程序中可能或存在的一些错误信息，可以防止用户看到错误报告的具体内容而产生恶意想法。
 
-##5、PHP高级
-###5.1 什么是 PHP 过滤器？
+## 5、PHP高级
+
+### 5.1 什么是 PHP 过滤器？
 PHP 过滤器用于验证和过滤来自非安全来源的数据。  
 验证和过滤用户输入或自定义数据是任何 Web 应用程序的重要组成部分。
 设计 PHP 的过滤器扩展的目的是使数据过滤更轻松快捷。
@@ -458,7 +463,7 @@ PHP 过滤器用于验证和过滤来自非安全来源的数据。
 		 echo("Integer is valid");
 		 }
 
-###5.2 Mysql操作
+### 5.2 Mysql操作
 
 	$con = mysql_connect("localhost","peter","abc123") or die('Could not connect: ' . mysql_error());
 	
@@ -495,7 +500,7 @@ PHP 过滤器用于验证和过滤来自非安全来源的数据。
 
 	mysql_close($con);
 
-###5.3 二进制安全
+### 5.3 二进制安全
 二进制安全功能（binary-safe function）是指在一个二进制文件上所执行的不更改文件内容的功能或者操作。这能够保证文件不会因为某些操作而遭到损坏。
 
 （就是指函数的参数包括二进制数据的时候，函数依然能正常操作。）
@@ -518,7 +523,7 @@ PHP的strlen是怎么都不会停的，直接返回这个字符串内部数据�
 	echo strcoll($string1, $string2); // 返回0, 由于是非二进制安全，误判为相等
 	echo strcmp($string1, $string2); // 返回负数
 
-###5.4 闭包
+### 5.4 闭包
 例子：
 闭包的语法很简单，需要注意的关键字就只有use，use意思是**连接闭包和外界变量**。
 
@@ -534,32 +539,33 @@ What：
 	- 解除递归函数
 	- 关于延迟绑定
 
-###5.5 PHP调试方法
+### 5.5 PHP调试方法
 - 增加中间变量或跟踪变量：例如输出
 - 用注释语句排除法进行调试：注释掉代码，错误没有了，那么大致可以定位错误的位置
 - 通过调试器：设置断点
 - 分段对程序做流程图解析。
 
 
-##6、php.ini
-###6.1 safe_mode选项
+## 6、php.ini
+
+### 6.1 safe_mode选项
 开启该选项，PHP将检查当前脚本的拥有者是否和被操作文件的拥有者相同，将影响文件操作类函数和程序执行类函数，如：pathinfo/basename/fopen/exec等。
 
-###6.2 上传文件
+### 6.2 上传文件
 `file_uploads` 设置为NO  
 `upload_tmp_dir` 默认是系统默认tmp目录  
 `upload_max_filesize` 上传文件的最大值  
 `max_execution_time` 一个指令所能执行的最大时间  
 `memory_limit` 一个指令分配的内存空间 单位是M
 
-##8、php框架
+## 7、php框架
 - Zend：Web2.0风格，功能强大，松耦合
 - ThinkPHP
 国内开发、原名FCS，开源
 - Seagull 简单易用，适合web、命令行和GUI应用的PHP框架
 - CodeIgniter 是一个简单快速的PHP MVC框架。EllisLab 的工作人员发布了 CodeIgniter。许多企业尝试体验过所有 PHP MVC 框架之后，CodeIgniter 都成为赢家，主要是由于它为组织提供了足够的自由支持，允许开发人员更迅速地工作。
 
-###8.1 Zend Framework
+### 7.1 Zend Framework
 常用组件：
 
 - `Zend_Controller`
@@ -628,7 +634,7 @@ Example #5 Creating a array zval
 	   'meaning' => (refcount=1, is_ref=0)='life',
 	   'number' => (refcount=1, is_ref=0)=42
 	)
-###7.2 回收周期
+### 7.2 回收周期
 >http://php.net/manual/zh/features.gc.collecting-cycles.php
 
 首先，我们先要建立一些基本规则，如果一个引用计数增加，它将继续被使用，当然就不再在垃圾中。如果引用计数减少到零，所在变量容器将被清除(free)。就是说，仅仅在引用计数减少到非零值时，才会产生垃圾周期(garbage cycle)。
@@ -639,8 +645,9 @@ Example #5 Creating a array zval
 
 当垃圾回收机制打开时，每当根缓存区存满时，就会执行上面描述的循环查找算法。根缓存区有固定的大小，可存10,000个可能根。 
 
-##8. PHP内核探索
-###8.1 变量的创建
+## 8. PHP内核探索
+
+### 8.1 变量的创建
 
 PHP总共有三个模块：内核、Zend引擎、以及扩展层。
 
