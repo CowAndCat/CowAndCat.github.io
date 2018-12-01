@@ -179,7 +179,7 @@ jieba.add_word('台中') 或者 jieba.suggest_freq('台中', True)
 基础知识请移步站内文章：
 
 - [《Docker 是什么》](/docker/2018/11/28/docker-intro.html)  
-- [《docker》](/docker/2018/11/29/docker-dockerfile.html)
+- [《Dockerfile定制镜像》](/docker/2018/11/29/docker-dockerfile.html)
 
 Dockfile:
   

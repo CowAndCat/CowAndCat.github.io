@@ -1,6 +1,6 @@
 ---
 layout: post
-title: virtualenv搭建独立的python运行环境
+title: Virtualenv搭建独立的python运行环境
 category: python
 comments: false
 ---

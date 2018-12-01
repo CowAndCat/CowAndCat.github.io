@@ -26,11 +26,11 @@ Your function should return length = 2, with the first two elements of nums bein
 		public int removeDuplicates(int[] nums) {
 			if(nums.length==0)return 0;
 			int j=1,index=1;
-		    for(int i=0;i<nums.length-1;i++){
-		        if(nums[i+1]!=nums[i]){
-		           nums[j++]=nums[i+1];
-		           index++;
-		        }
+			for(int i=0;i<nums.length-1;i++){
+				if(nums[i+1]!=nums[i]){
+					nums[j++]=nums[i+1];
+					index++;
+				}
 		    }
 		    return index;
 		}
