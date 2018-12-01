@@ -25,7 +25,7 @@ comments: false
 
     当你想在单个project里开展工作，执行：
 
-        $ . venv/bin/activate
+        $ source venv/bin/activate
 
     Go back to the real world:
 
