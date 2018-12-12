@@ -71,7 +71,7 @@ es支持多种类型的gateway，有本地文件系统（默认），分布式�
 
 Mysql与Elasticsearch核心概念对比示意图:
 
-![1](/images/201809/es-term-mapping.png "es-term-mapping")
+![1](/images/201809/es-term-mapping.jpg "es-term-mapping")
 
 ### 3.1 索引（Index)
 
