@@ -58,7 +58,11 @@ batch gradient descent (批量梯度下降)与梯度下降的区别：每次迭�
 
 批量梯度下降不适合训练集很大的场景，因为要计算很多次。所以出现了incremetal gradient descent(增量梯度下降)：每次迭代的时候，都更新参数theta，因为只要遍历样本个数的次数，所以会很快。但是这个算法并不会得到一个最小值，而是在最小值附近徘徊。
 
+# TBC
+- 看完简介
+- 看完《机器学习-算法原理与编程实践》
 
 # REF
-> (机器学习简介 (Introduction to Machine Learning)[https://developers.google.com/machine-learning/crash-course/ml-intro?hl=zh-cn]
+> [机器学习简介 Introduction to Machine Learning](https://developers.google.com/machine-learning/crash-course/ml-intro?hl=zh-cn)
+> 《机器学习-算法原理与编程实践》
 

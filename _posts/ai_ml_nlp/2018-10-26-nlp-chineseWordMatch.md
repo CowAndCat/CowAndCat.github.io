@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 中文敏感词匹配
-category: nlp
+category: NLP
 comments: false
 ---
 

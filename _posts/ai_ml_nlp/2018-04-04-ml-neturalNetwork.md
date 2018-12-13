@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 神经网络
-category: ml
+category: ML
 comments: false
 ---
 ## 一、神经网络的运作过程

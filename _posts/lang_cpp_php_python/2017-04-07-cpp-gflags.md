@@ -1,7 +1,7 @@
 ---
 layout: post
 title: gflags
-category: cpp
+category: c_cpp
 comments: false
 ---
 
