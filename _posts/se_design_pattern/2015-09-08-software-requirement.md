@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 软件工程和设计模式面试
-category: se
+category: SE
 comments: false
 ---
 

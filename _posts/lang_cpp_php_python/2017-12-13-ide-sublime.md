@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 12个不可不知的Sublime Text应用技巧和诀窍
-category: IDEA
+category: IDE
 comments: false
 ---
 

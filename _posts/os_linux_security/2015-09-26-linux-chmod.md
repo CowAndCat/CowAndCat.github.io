@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Linux 也忘得差不多了
-category: os-linux
+title: Linux 相关知识
+category: linux
 comments: false
 ---
 ### 1、 chmod命令

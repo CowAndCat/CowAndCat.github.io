@@ -1,7 +1,7 @@
 ---
 layout: post
 title: OS面试题
-category: os
+category: OS
 comments: false
 ---
 

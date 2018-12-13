@@ -110,7 +110,7 @@ googleAnaly:
 
 #comment config
 disqus:
-  config: true
+  config: false
   id: haluomao
  
 ########Global config
@@ -118,7 +118,7 @@ username: cowandcat
 baseurl:
 safe: false
 highlighter: rouge #pygments
-plugins: [jekyll-paginate]
+plugins: [jekyll-paginate] #gem install jekyll-paginate
 
 title: MFG's Blog
 description: Good Good Coding, Day Day Up!

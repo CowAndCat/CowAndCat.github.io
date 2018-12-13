@@ -1,7 +1,7 @@
 ---
 layout: post
 title: UML存在性说明
-category: se
+category: SE
 comments: false
 ---
 

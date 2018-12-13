@@ -1,7 +1,7 @@
 ---
 layout: post
 title: linux的进程
-category: os-linux
+category: linux
 comments: false
 ---
 

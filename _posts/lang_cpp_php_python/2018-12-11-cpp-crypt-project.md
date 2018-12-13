@@ -2,7 +2,7 @@
 layout: post
 title: 一套跨语言的高速加解密算法
 category: c_cpp
-comments: false
+comments: true
 ---
 
 ## 一、问题背景

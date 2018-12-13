@@ -12,6 +12,10 @@ comments: false
 - SourceTree 1.6.14  
  可视化做得很好，不过以前的版本有时会卡死。
 
+### 直播码代码
+
+[http://codeshare.io](http://codeshare.io)
+
 ## 二、阅读系列
 
 ### 阅读器
@@ -32,3 +36,4 @@ comments: false
 
 - Travis CI 免费的集成测试环境
 可以与github项目结合。
+
