@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Changes to Default Layouts!"
-date:   2015-08-06 16:09:37
 category: tech
 comments: true
 ---

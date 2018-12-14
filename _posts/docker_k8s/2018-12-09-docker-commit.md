@@ -2,7 +2,7 @@
 layout: post
 title: docker日常操作集合
 category: docker
-comments: false
+comments: true
 ---
 
 ## 一、Commit

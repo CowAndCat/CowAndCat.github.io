@@ -107,20 +107,22 @@
         <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
 		<script type="text/javascript" src="{{ site.url }}/themes/{{ site.themename }}/js/jquery.min.js"></script>
         {% if page.comments %}		
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-        <script>
-            var gitment = new Gitment({
-              id: 'location.href', // 可选。默认为 location.href
-              owner: 'haluomao',
-              repo: 'blog_comments',
-              oauth: {
-                client_id: 'f65803999836f87c0c86',
-                client_secret: 'bb041ed18fe5aeee2104124ef70cd669077f4f26',
-              },
-            })
-            gitment.render('comment-container')
-        </script>		
+            {% if site.gitment.config %}      
+            <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+            <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+            <script>
+                var gitment = new Gitment({
+                  id: '{{ site.gitment.id }}', // 可选。默认为 location.href
+                  owner: '{{ site.gitment.owner }}',
+                  repo: '{{ site.gitment.repo }}',
+                  oauth: {
+                    client_id: '{{ site.gitment.oauth.client_id }}',
+                    client_secret: '{{ site.gitment.oauth.client_secret }}',
+                  },
+                })
+                gitment.render('comment-container')
+            </script>
+            {% endif %}	
 		{% endif %}
     </body>
 </html>
