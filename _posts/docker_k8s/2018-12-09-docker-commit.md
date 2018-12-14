@@ -5,7 +5,7 @@ category: docker
 comments: true
 ---
 
-## 一、Commit
+## 一、commit
 
 基于已有的docker容器，做一新的dokcer image.
 
@@ -50,12 +50,20 @@ comments: true
     registry.baidu.com/public_team/safedongle-centos7   0.8                 be417a3daa9a        2 weeks ago         365MB
     registry.baidu-int.com/acu-voice/basegpu            1.0.0               363478e3efb1        6 months ago        916MB
 
+在列出的所有顶层（top-level）镜像信息中，可以看到几个字段信息
+
+- REPOSITORY: 来自于哪个仓库，比如 ubuntu
+- TAG: 镜像的标记，比如 14.04
+- IMAGE ID: 它的 ID 号（唯一）
+- CREATED: 创建时间
+- SIZE: 镜像大小
+
     abc@BDSHYF000135355:~/Docker$ docker save -o dongle-basegpu.tar local/dongle-basegpu:1.0.0 
     // 出去上个厕所
     abc@BDSHYF000135355:~/Docker$ ls
     Dockerfile         basegpu.tar        dongle             dongle-basegpu.tar
 
-## 二、Load 和 Save
+## 二、load、save和export
 
 查看镜像：
 
@@ -74,3 +82,83 @@ comments: true
 跑起来
 
     docker run -p 8081:8080 -d spring-boot-docker
+
+容器导出
+    
+    docker export <container-id>
+
+创建一个tar文件，并且移除了元数据和不必要的层，将多个层整合成了一个层，只保存了当前统一视角看到
+的内容。
+**expoxt后的容器再import到Docker中，只有一个容器当前状态的镜像；而save后的镜像则不同，
+它能够看到这个镜像的历史镜像。**
+
+## 三、docker history 
+这个命令可以查看镜像使用了哪些image layers
+
+    docker history IMAGE
+
+## 四、pull 和 push
+获取镜像
+
+    docker pull centos:centos6
+
+实际上相当于 docker pull registry.hub.docker.com/centos:centos6
+命令，即从注册服务器 registry.hub.docker.com 中的 centos 仓库来下载标记为 centos6 的镜像.
+
+上传镜像
+    
+    ocker push hainiu/httpd:1.0
+
+用户可以通过 docker push 命令，把自己创建的镜像上传到仓库中来共享。上例中，用户将镜像推送自己的镜像到仓库中。
+
+## 五、容器相关
+
+### 5.1 启动容器
+
+    docker start <container-id>
+
+Docker start命令为容器文件系统创建了一个进程隔离空间。注意，每一个容器只能够有一个进程隔离空间。
+
+运行实例：
+
+    #通过名字启动
+    $ docker start -i centos6_container
+
+    ＃通过容器ID启动
+    $ docker start -i b3cd0b47fe3d
+
+### 5.2 进入容器
+
+    docker exec <container-id>
+
+在当前容器中执行新命令，如果增加 -it参数运行bash 就和登录到容器效果一样的。
+
+    docker exec -it centos6_container bash
+
+### 5.3 其他  
+停止容器
+
+    docker stop <container-id>
+
+删除容器#
+    
+    docker rm <container-id>
+
+(删除镜像: `docker rmi <image-id>`)
+
+运行容器
+    
+    docker run <image-id>
+
+docker run就是docker create和docker start两个命令的组合,支持参数也是一致的。
+如果指定容器名字时，容器已经存在会报错,可以增加 `--rm` 参数实现容器退出时自动删除。
+
+运行示例:
+
+    docker create -it --rm --name centos6_container centos:centos6
+
+## 六、inspect
+    
+    docker inspect <container-id> or <image-id>
+
+docker inspect命令会提取出容器或者镜像最顶层的元数据。
