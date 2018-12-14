@@ -114,9 +114,9 @@ disqus:
   id: haluomao
 gitment:
   config: true
-  id: location.href
+  id: maofg.site # optional
   owner: haluomao
-  repo: cowandcat.github.io
+  repo: blog_comments
   oauth: 
     client_id: f65803999836f87c0c86
     client_secret: bb041ed18fe5aeee2104124ef70cd669077f4f26
