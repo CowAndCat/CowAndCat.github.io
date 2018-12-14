@@ -114,7 +114,6 @@ disqus:
   id: haluomao
 gitment:
   config: true
-  id: maofg.site # optional
   owner: haluomao
   repo: blog_comments
   oauth: 
