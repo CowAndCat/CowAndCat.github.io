@@ -234,6 +234,8 @@ a         { color: #91736b; text-decoration: none; }
     width: 100%;
     margin-bottom: 1em;
     color: #4d4d4d;
+    word-break: keep-all;
+    border-spacing: 0px;
 }
 
 .main .article table:after {
@@ -257,6 +259,7 @@ a         { color: #91736b; text-decoration: none; }
 }
 .main .article table th, .main .article table td {
     padding: 4px 0;
+    border: 1px solid #ddd;
 }
 .main .article table th {
     background: rgba(0, 0, 0, 0.1);

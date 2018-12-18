@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java ConccurrentHashMap
+title: Java ConcurrentHashMap
 category: java
 comments: false
 ---
@@ -38,7 +38,7 @@ comments: false
 
 # 二、ConcurrentHashMap
 
-### 2.1 Design goal
+### 2.1 Design goal (java8)
 The primary design goal of this hash table is to maintain concurrent readability (typically method get(), but also iterators and related methods) while minimizing update contention. Secondary goals are to keep space consumption about the same or better than java.util.HashMap, and to support high initial insertion rates on an empty table by many threads.
 (主要目标是保持并发可读，同时最小化更新的竞争；其次是用不多于hashMap的空间，增加初始化的insert操作)
 
@@ -56,7 +56,7 @@ The primary design goal of this hash table is to maintain concurrent readability
 
 ### 2.3 操作
 
-每次在空bin上的首个Node的插入操作都使用CAS来执行，其他的更新操作（insert, delete and replace）都要求locks. 这里有个巧妙的地方：不会将锁加到整个bin上，而是加到每个bin的第一个node上。这样可以节省临界区域。但是这个巧妙还需要做一层校验：当一个node被锁住，任何的update操作都要先校验这个node是不是首个node，如果不是就不断重试。因为新node都是加到list后面，除非是被删或被扩容。
+每次在空bin上的首个Node的插入操作都使用CAS（Compare-and-swap）来执行，其他的更新操作（insert, delete and replace）都要求locks. 这里有个巧妙的地方：不会将锁加到整个bin上，而是加到每个bin的第一个node上。这样可以节省临界区域。但是这个巧妙还需要做一层校验：当一个node被锁住，任何的update操作都要先校验这个node是不是首个node，如果不是就不断重试。因为新node都是加到list后面，除非是被删或被扩容。
 
 ### 2.4 Traversal scheme
 Any thread noticing an overfull bin may assist in resizing after the initiating thread allocates and sets up the replacement array.（线程会帮着resizing超容的bin）
@@ -74,7 +74,7 @@ TreeBin: 当bin里元素个数超过8，将list转tree;当个数小于6，tree�
 - 保证resizing不会重叠
 - -1 表示初始化
 - -1-num 表示resize，num表示the number of active resizing thread.
-- >0 表示下次扩容的大小
+- 小于0 表示下次扩容的大小
 
 
 ## 三、不同JDK的实现异同
@@ -87,7 +87,7 @@ TreeBin: 当bin里元素个数超过8，将list转tree;当个数小于6，tree�
 
 相比于对整个Map加锁的设计，分段锁大大的提高了高并发环境下的处理能力。但同时，由于不是对整个Map加锁，导致一些需要扫描整个Map的方法（如size(), containsValue()）需要使用特殊的实现，另外一些方法（如clear()）甚至放弃了对一致性的要求（ConcurrentHashMap是弱一致性的）。
 
-ConcurrentHashMap中的HashEntry相对于HashMap中的Entry有一定的差异性：HashEntry中的value以及next都被volatile修饰，这样在多线程读写过程中能够保持它们的可见性，代码如下：
+ConcurrentHashMap中的HashEntry相对于HashMap中的Entry有一定的差异性：CHM的HashEntry中的value以及next都被volatile修饰，这样在多线程读写过程中能够保持它们的可见性，代码如下：
 
     static final class HashEntry<K,V> {
         final int hash;
@@ -95,8 +95,9 @@ ConcurrentHashMap中的HashEntry相对于HashMap中的Entry有一定的差异性
         volatile V value;
         volatile HashEntry<K,V> next;
 
-HashTable虽然性能上不如ConcurrentHashMap，但并不能完全被取代，两者的迭代器的一致性不同的，HashTable的迭代器是强一致性的，而ConcurrentHashMap是弱一致的。 ConcurrentHashMap的get，clear，iterator 都是弱一致性的。
+Hashtable虽然性能上不如ConcurrentHashMap，但并不能完全被取代，两者的迭代器的一致性不同的，Hashtable的迭代器是强一致性的，而ConcurrentHashMap是弱一致的。 ConcurrentHashMap的 get，clear，iterator 都是弱一致性的。
 
+get方法是弱一致的，是什么含义？可能你期望往ConcurrentHashMap底层数据结构中加入一个元素后，立马能对get可见，但ConcurrentHashMap并不能如你所愿。换句话说，put操作将一个元素加入到底层数据结构后，get可能在某段时间内还看不到这个元素，若不考虑内存模型，单从代码逻辑上来看，却是应该可以看得到的。
 
 #### 3.1.2 弱一致性解释
 

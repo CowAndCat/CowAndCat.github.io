@@ -183,15 +183,16 @@ PRI与NI的相关性如下：
 - 一开始执行程式就立即给予一个特定的nice 值：用nice 指令；
 - 调整某个已经存在的PID 的nice 值：用renice 指令。
 
-    [root@study ~]# nice [-n数字] command 
+        [root@study ~]# nice [-n数字] command 
     选项与参数：
     -n ：后面接一个数值，数值的范围-20 ~ 19。
 
     范例一：用root给一个nice值为-5 ，用于执行vim ，并观察该程序！
-    [root@study ~]# nice -n -5 vim &
-    [1] 19865
 
-    [root@study ~]# renice [number] PID 
+        [root@study ~]# nice -n -5 vim &
+        [1] 19865
+
+        [root@study ~]# renice [number] PID 
     选项与参数：
     PID ：某个程序的ID！不用输-n了。
 

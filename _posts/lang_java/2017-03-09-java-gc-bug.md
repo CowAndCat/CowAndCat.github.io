@@ -8,7 +8,7 @@ comments: false
 
 ## 1. 先用jps 和 jstack定位pid
 
-推荐用如下命令代替：
+推荐用如下命令代替jps：
 
 	ps aux|grep java
 
@@ -29,8 +29,6 @@ comments: false
 	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-25" prio=10 tid=0x00007f6910005800 nid=0x6f77 waiting on condition [0x00007f68795d4000]
 	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-24" prio=10 tid=0x00007f6918005800 nid=0x6f76 waiting on condition [0x00007f68796d5000]
 	"taserverThreadPool-exec-null.UserBase.YuewenRiskControlServer.YuewenRiskControlServant-23" prio=10 tid=0x00007f691c005800 nid=0x6f7夫5 waiting on condition [0x00007f68797d6000]
-
-
 
 ## 2. 再用jmap 查看heap使用情况
 
@@ -119,7 +117,6 @@ jstat -gc 28296
 > 小知识:
 less和more具有相同功能，控空格可查看下一页，但less能支持用上下键进行翻滚
 
-
 	[running]mqq@10.242.50.116:~$ jmap -histo:live 28296 | less
 
 	 num     #instances         #bytes  class name
@@ -180,4 +177,4 @@ class name是对象类型，说明如下：
 
 ## 5. 最后，如果还是看不出问题，可以调大heap再观察一段时间
 
-一般来说，问题可能是内存泄漏，也可能是因为服务对象太多，导致空间不足，引发频繁地gc。
+一般来说，问题可能是内存泄漏，也可能是因为服务对象太多，导致空间不足，引发频繁的GC。
