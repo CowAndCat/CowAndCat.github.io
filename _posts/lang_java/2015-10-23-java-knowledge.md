@@ -15,8 +15,10 @@ Java中强化这个预定的代码：
 
 	protected final Class defineClass(String...) throws ClassFormatError{
 		check();
-		if(name != null && name.startsWith("java.")){
-			throw new SecurityException("Prohibited package name:"+name.subString(0, name.lastIndexOf('.')));
+		if(name != null && name.startsWith("java.")) {
+			throw new SecurityException("Prohibited package name:"+
+				name.subString(0, name.lastIndexOf('.')));
+		}
 	}
 
 Q: 如果自定义实现一个String类，所有的属性和方法都和jdk里面的一样，如果使用到String，会使用哪个？
@@ -55,9 +57,11 @@ Java中的内存泄露和C++中的内存泄露也有本质的区别。与其称�
 堆上的空间由自动的存储管理系统进行控制，即由gc进行控制。
 
 #### 3.2 JVM内存模型
-除了栈和堆，JVM中海油其他一些内存区域，例如方法区（method area）、常量池（Constant pool）、本地栈（native method area）等。
+除了栈和堆，JVM中还有其他一些内存区域，例如方法区（method area）（包括永久区和常量池）、程序计数器（Program Counter Register）、本地栈（native method area）等。
 
 ### 4、gc
+
+请参考：[垃圾回收](https://www.cnblogs.com/xing901022/p/7725961.html)
 
 #### 4.1 分代复制垃圾收集器  
 算法基于这样一个假设：超过95%的对象的生命周期都很短。
@@ -84,6 +88,21 @@ Java中的内存泄露和C++中的内存泄露也有本质的区别。与其称�
 
 #### 4.3 分代收集   
 现在的虚拟机垃圾收集大多采用这种方式，它根据对象的生存周期，将堆分为新生代和老年代。在新生代中，由于对象生存期短，每次回收都会有大量对象死去，那么这时就采用 复制 算法。老年代里的对象存活率较高，没有额外的空间进行分配担保，所以可以使用 标记 - 整理（1）   或者   标记 - 清除 （2）
+
+![gen-gc](/images/201812/gen-gc.png)
+
+上面可以看到堆分成两个区域：
+
+- 新生代(Young Generation)：用于存放新创建的对象，采用复制回收方法，如果在s0和s1之间复制一定次数后，转移到年老代中。这里的垃圾回收叫做minor GC;
+- 年老代(Old Generation)：这些对象垃圾回收的频率较低，采用的标记整理方法，这里的垃圾回收叫做 major GC。
+
+这里可以详细的说一下新生代复制回收的算法流程：
+
+在新生代中，分为三个区：Eden, from survivor, to survior。
+
+- 当触发minor GC时，会先把Eden中存活的对象复制到to Survivor中；
+- 然后再看from survivor，如果次数达到年老代的标准，就复制到年老代中；如果没有达到则复制到to survivor中，如果to survivor满了，则复制到年老代中。
+- 然后调换from survivor 和 to survivor的名字，保证每次to survivor都是空的等待对象复制到那里的。
 
 #### 4.4 增量垃圾收集
 能够提供接近于常数的固定的暂停时间，用户感觉不到这个时间。
@@ -191,6 +210,7 @@ JNI的缺点：使用了JNI，就会失去大部分java平台的好处，例如�
 - volatile
 	- 用volatile修饰的变量，线程在每次使用变量的时候，都会读取变量修改后的最新的值。
 	- 对于volatile修饰的变量，jvm虚拟机只是保证从主内存加载到线程工作内存的值是最新的，所以，volatile很容易被误用，用来进行原子性操作，其实还是会存在并发的情况。
+	- 能防止编译器进行指令重排。（这点synchronized做不到）
 	- `public volatile static int count = 0;`
 
 ### 16、join
@@ -238,3 +258,4 @@ serialization则是深层拷贝，会复制一张完整的“对象网”，对�
 因为null值可以强制转换为任何java类类型,(String)null也是合法的。
 
 但null强制转换后是无效对象，其返回值还是为null，而static方法的调用是和类名绑定的，不借助对象进行访问所以能正确输出。反过来，没有static修饰就只能用对象进行访问，使用null调用对象肯定会报空指针错了。这里和C++很类似。
+

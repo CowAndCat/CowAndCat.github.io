@@ -97,7 +97,7 @@ https://console.cloud.google.com/iam-admin/projects 选择『创建项目』
 等哪天gcloud auth 能通过了，再继续研究。
 
 ## REF
-> [对 Cloud SDK 工具授权](https://cloud.google.com/sdk/docs/authorizing)
-> [gcloud auth login](https://cloud.google.com/sdk/gcloud/reference/auth/login)
-> [Getting Started with Flask on App Engine Standard Environment](https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env)
+> [对 Cloud SDK 工具授权](https://cloud.google.com/sdk/docs/authorizing)  
+> [gcloud auth login](https://cloud.google.com/sdk/gcloud/reference/auth/login)  
+> [Getting Started with Flask on App Engine Standard Environment](https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env)  
 > [实践 | 用SAE搭建Python应用，实现简单的网页访问量统计](https://www.jianshu.com/p/a0ffe6de9617)
