@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 《常见面试题和回答思路》
+title: 常见面试题和回答思路
 category: mind
 comments: true
 ---

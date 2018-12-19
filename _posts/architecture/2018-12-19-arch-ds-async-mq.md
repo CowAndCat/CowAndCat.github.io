@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 分布式事务之本地消息表（异步确保）和消息队列
+title: 分布式事务之本地消息表和消息队列
 category: arch
 comments: false
 ---

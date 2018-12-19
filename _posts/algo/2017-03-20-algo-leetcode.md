@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LeetCode
+title: 计算二叉树的两个子节点距离最大值
 category: algorithm
 comments: false
 ---
