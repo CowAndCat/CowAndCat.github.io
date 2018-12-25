@@ -14,7 +14,7 @@ comments: false
 
 ## 执行过程
 
-阅读代码需要有编程基础和足够的耐心，最后要有记录和思考，虽说如此，但我任务这个比看ACM和IEEE会议上的paper要容易一些吧。
+阅读代码需要有编程基础和足够的耐心，最后要有记录和思考，虽说如此，但我认为这比看ACM和IEEE会议上的paper要容易一些吧。
 
 1. 选好IDE和需要阅读的源代码： Intellij idea (或eclipse) + JDK 1.7
 1. 先看一些大牛门的建议，少走一些弯路。
@@ -49,26 +49,27 @@ comments: false
 1、对于小数组（<47 变了),直接用插入排序；  
 2、选择两个中心点P1和P2，保证P1小于P2；  
 3、分割剩余的数组：第一部分——小于P1（begin至L-1）；第二部分——不小于P1并小于P2（L至K-1）；第三部分——大于P2（G至end）；第四部分——剩余的那一堆（K至G-1）；  
-
-      /*  
-       * Partitioning:(充满了geek精神的一段注释)  
-       *  
-       *   left part           center part                   right part  
-       * +--------------------------------------------------------------+  
-       * |  < pivot1  |  pivot1 <= && <= pivot2  |    ?    |  > pivot2  |  
-       * +--------------------------------------------------------------+  
-       *               ^                          ^       ^  
-       *               |                          |       |  
-       *              less(L)                     k     great(G)  
-       *  
-       * Invariants:  
-       *  
-       *              all in (left, less)   < pivot1  
-       *    pivot1 <= all in [less, k)     <= pivot2  
-       *              all in (great, right) > pivot2  
-       *  
-       * Pointer k is the first index of ?-part.  
-       */  
+  ```
+  /*  
+   * Partitioning:(充满了geek精神的一段注释)  
+   *  
+   *   left part           center part                   right part  
+   * +--------------------------------------------------------------+  
+   * |  < pivot1  |  pivot1 <= && <= pivot2  |    ?    |  > pivot2  |  
+   * +--------------------------------------------------------------+  
+   *               ^                          ^       ^  
+   *               |                          |       |  
+   *              less(L)                     k     great(G)  
+   *  
+   * Invariants:  
+   *  
+   *              all in (left, less)   < pivot1  
+   *    pivot1 <= all in [less, k)     <= pivot2  
+   *              all in (great, right) > pivot2  
+   *  
+   * Pointer k is the first index of ?-part.  
+   */  
+  ```
 4、算法不断将第四部分的数据往其他部分放，L、K和G也往相对应的方向增长；  
 5、重复4直到K<=G;  
 6、P1放在L的位置，P2放在G（或K）的位置；  

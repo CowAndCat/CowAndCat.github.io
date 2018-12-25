@@ -21,7 +21,7 @@ Java并发API为使用ThreadLocal类的局部线程变量提供了一个简洁�
 - set(T value)：为当前线程拷贝的局部线程变量设置一个特定的值。
 
 ### 1.2 怎样使用ThreadLocal？
-下面的例子使用两个局部线程变量，即threadId和startDate。它们都遵循推荐的定义方法，即“private static”类型的字段。threadId用来区分当前正在运行的线程，startDate用来获取线程开启的时间。上面的信息将打印到控制台，以此验 证每一个线程管理他自己的变量拷贝。
+下面的例子使用两个局部线程变量，即threadId和startDate。它们都遵循推荐的定义方法，即“private static”类型的字段。threadId用来区分当前正在运行的线程，startDate用来获取线程开启的时间。上面的信息将打印到控制台，以此验证每一个线程管理它自己的变量拷贝。
 
 	class DemoTask implements Runnable {
 	
@@ -52,15 +52,13 @@ Java并发API为使用ThreadLocal类的局部线程变量提供了一个简洁�
 	
 	   @Override
 	   public void run() {
-	      System.out.printf("Starting Thread: %s : %sn",
-	                        getThreadId(), startDate.get());
+	      System.out.printf("Starting Thread: %s : %sn", getThreadId(), startDate.get());
 	      try {
 	         TimeUnit.SECONDS.sleep((int) Math.rint(Math.random() * 10));
 	      } catch (InterruptedException e) {
 	         e.printStackTrace();
 	      }
-	      System.out.printf("Thread Finished: %s : %sn",
-	                        getThreadId(), startDate.get());
+	      System.out.printf("Thread Finished: %s : %sn", getThreadId(), startDate.get());
 	   }
 	}
 
@@ -155,9 +153,9 @@ Bank.java代码如下：
 	
 看了运行效果，一开始一头雾水，怎么只让存，不让取啊？看看ThreadLocal的原理：
 
-**如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。**现在明白了吧，原来每个线程运行的都是一个副本，也就是说存钱和取钱是两个账户，知识名字相同而已。所以就会发生上面的效果。
+**如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。**现在明白了吧，原来每个线程运行的都是一个副本，也就是说存钱和取钱是两个账户，只是名字相同而已。所以就会发生上面的效果。
 
 ThreadLocal与同步机制
 
-a.ThreadLocal与同步机制都是为了解决多线程中相同变量的访问冲突问题  
-b.前者采用以”空间换时间”的方法，后者采用以”时间换空间”的方式
+a. ThreadLocal与同步机制都是为了解决多线程中相同变量的访问冲突问题  
+b. 前者采用以”空间换时间”的方法，后者采用以”时间换空间”的方式

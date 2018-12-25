@@ -20,7 +20,7 @@ char取值是0到2的16次方减1。short也就16位，是有符号的。
 3种：直接常量赋值；String构造函数；方法实例化valueOf.
 
 ## 5. null和""，==和equals()的区别  
-null和“”:前面没有分配内存，后面分配了。
+null和"":前面没有分配内存，后面分配了。  
 ==和equals:前者比较的是内存地址和内容;后者比较的是内容，不考虑地址。
 
 ## 6.  switch 条件表达式类型: int, short, char，byte。(要是低于int位数的数据类型）
@@ -49,56 +49,57 @@ null和“”:前面没有分配内存，后面分配了。
 ## 11. map中没有iterator,有的是entry。iterator仅用于集合类。
 
 ## 12. 下面代码的输出结果是什么，解释一波。
-	public class Fun {
-		public static void main(String[] args) {
-			new Son();
-		}
-	}
 
-	class Father {
-		private static String i = "father static";
-		static {
-			System.out.println(i);
-		}
+    public class Fun {
+        public static void main(String[] args) {
+            new Son();
+        }
+    }
 
-		public Father() {
-			System.out.println("father constructor");
-		}
+    class Father {
+        private static String i = "father static";
+        static {
+            System.out.println(i);
+        }
 
-		private int j = func();
+        public Father() {
+            System.out.println("father constructor");
+        }
 
-		public int func() {
-			System.out.println("father non static");
-			return 1;
-		}
-	}
+        private int j = func();
 
-	class Son extends Father {
-		private static String i = "son static";
-		static {
-			System.out.println(i);
-		}
+        public int func() {
+            System.out.println("father non static");
+            return 1;
+        }
+    }
 
-		public Son() {
-			System.out.println("son constructor");
-		}
+    class Son extends Father {
+        private static String i = "son static";
+        static {
+            System.out.println(i);
+        }
 
-		private int j = func();
+        public Son() {
+            System.out.println("son constructor");
+        }
 
-		public int func() {
-			System.out.println("son non static");
-			return 1;
-		}
-	}
+        private int j = func();
+
+        public int func() {
+            System.out.println("son non static");
+            return 1;
+        }
+    }
 
 输出结果：
 
-	father static  
-	son static  
-	son non static  
-	father constructor  
-	son non static  
-	son constructor  
+    father static  
+    son static  
+    son non static  
+    father constructor  
+    son non static  
+    son constructor  
 
 你需要通过这段程序，知道Java继承中，static、成员初始化和构造函数的调用顺序。
 
@@ -110,43 +111,43 @@ null和“”:前面没有分配内存，后面分配了。
 
 - notifyAll()方法：能够唤醒所有正在等待这个对象的monitor的线程；
 
-	注意这三个函数都是在object上的：由于每个对象都拥有monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
+    注意这三个函数都是在object上的：由于每个对象都拥有monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
 
 实现（类似于ArrayBlockingQueue)：
 
-	import java.util.ArrayList;
-	import java.util.List;
+    import java.util.ArrayList;
+    import java.util.List;
 
-	public class BlockingQueue<T> {
+    public class BlockingQueue<T> {
 
-		private int size;
-		private int capacity;
-		private List<T> cache;
+        private int size;
+        private int capacity;
+        private List<T> cache;
 
-		public BlockingQueue(int capcacity) {
-			this.capacity = capcacity;
-			cache = new ArrayList<T>(capcacity);
-			this.size = 0;
-		}
+        public BlockingQueue(int capcacity) {
+            this.capacity = capcacity;
+            cache = new ArrayList<T>(capcacity);
+            this.size = 0;
+        }
 
-		public synchronized void take() throws InterruptedException {
-			this.notify();
-			while (size <= 0) {
-				this.wait();
-			}
-			cache.remove(0);
-			size--;
-		}
+        public synchronized void take() throws InterruptedException {
+            this.notify();
+            while (size <= 0) {
+                this.wait();
+            }
+            cache.remove(0);
+            size--;
+        }
 
-		public synchronized void put(T t) throws InterruptedException {
-			this.notify();
-			while (size >= capacity) {
-				this.wait();
-			}
-			cache.add(t);
-			size++;
-		}
-	}
+        public synchronized void put(T t) throws InterruptedException {
+            this.notify();
+            while (size >= capacity) {
+                this.wait();
+            }
+            cache.add(t);
+            size++;
+        }
+    }
 
 ### 需要注意的地方：
 
@@ -156,69 +157,69 @@ null和“”:前面没有分配内存，后面分配了。
 
 利用生成者和消费者问题进行测试：
 
-	public class Test {
-		public static void testProduceAndConsume() {
-			// 水果篮子
-			final Basket basket = new Basket();
+    public class Test {
+        public static void testProduceAndConsume() {
+            // 水果篮子
+            final Basket basket = new Basket();
 
-			// 生产者线程
-			class Producer implements Runnable {
-				public void run() {
-					while (true) {
-						try {
-							System.out.println("Produce apples begin ");
-							basket.produce();
-							System.out.println("Produce apples end ");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
+            // 生产者线程
+            class Producer implements Runnable {
+                public void run() {
+                    while (true) {
+                        try {
+                            System.out.println("Produce apples begin ");
+                            basket.produce();
+                            System.out.println("Produce apples end ");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
 
-			// 消费者线程
-			class Consumer implements Runnable {
-				public void run() {
-					while (true) {
-						try {
-							System.out.println("Comsume apples begin ");
-							basket.consume();
-							System.out.println("Comsume apples end");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
+            // 消费者线程
+            class Consumer implements Runnable {
+                public void run() {
+                    while (true) {
+                        try {
+                            System.out.println("Comsume apples begin ");
+                            basket.consume();
+                            System.out.println("Comsume apples end");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
 
-			Producer producer = new Producer();
-			Consumer consumer = new Consumer();
+            Producer producer = new Producer();
+            Consumer consumer = new Consumer();
 
-			// 开始两个进程
-			Thread t1 = new Thread(producer);
-			Thread t2 = new Thread(consumer);
+            // 开始两个进程
+            Thread t1 = new Thread(producer);
+            Thread t2 = new Thread(consumer);
 
-			t1.start();
-			t2.start();
-		}
+            t1.start();
+            t2.start();
+        }
 
-		public static class Basket {
-			// 篮子只能放2个apple
-			BlockingQueue<Integer> basket = new BlockingQueue<Integer>(2);
+        public static class Basket {
+            // 篮子只能放2个apple
+            BlockingQueue<Integer> basket = new BlockingQueue<Integer>(2);
 
-			public void produce() throws InterruptedException {
-				basket.put(1);
-			}
+            public void produce() throws InterruptedException {
+                basket.put(1);
+            }
 
-			public void consume() throws InterruptedException {
-				basket.take();
-			}
-		}
+            public void consume() throws InterruptedException {
+                basket.take();
+            }
+        }
 
-		public static void main(String[] args) {
-			testProduceAndConsume();
-		}
-	}
+        public static void main(String[] args) {
+            testProduceAndConsume();
+        }
+    }
 
 将BlockingQueue用Java内置的ArrayBlockingQueue替换，能得到同样的效果。
 
@@ -260,9 +261,9 @@ LinkedBlockingQueue和ArrayBlockingQueue比较起来，它们背后所用的数�
 
 ## 15. for循环可以不使用{}，但是仅限于执行语句（不包括变量声明语句！）
 
-	for (int i = 0; i < 10; i++){
-		int k=i;
-	}
-	//不加花括号，竟然会编译出错
-	for (int i = 0; i < 10; i++)
-		int k=i;
+    for (int i = 0; i < 10; i++){
+        int k=i;
+    }
+    //不加花括号，竟然会编译出错
+    for (int i = 0; i < 10; i++)
+        int k=i;

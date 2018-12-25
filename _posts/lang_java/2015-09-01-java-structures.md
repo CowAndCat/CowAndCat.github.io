@@ -46,62 +46,67 @@ List和Set的父类。
 
 	列表中的所有元素都必须实现 Comparable 接口。此列表内的所有元素都必须是使用指定比较器可相互比较的。如：
 
-		double array[] = {112, 111, 23, 456, 231 };
-		for (int i = 0; i < array.length; i++) {
-		list.add(new Double(array[i]));
-		}
+		List<Double> list = new ArrayList<>();
+        double array[] = {112, 111, 23, 456, 231};
+        for (int i = 0; i < array.length; i++) {
+            list.add(new Double(array[i]));
+        }
 
-		Collections.sort(list);
+        Collections.sort(list);
 
-		for (int i = 0; i < array.length; i++) {
-		System.out.println(li.get(i));
-		}
-		//结果：112,111,23,456,231
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(list.get(i) + " ");
+        }
+		// 结果：23.0 111.0 112.0 231.0 456.0
 
 2. 混排（Shuffling）  
 	混排算法所做的正好与 sort 相反： 它打乱在一个 List 中可能有的任何排列的踪迹。也就是说，基于随机源的输入重排该 List，这样的排列具有相同的可能性（假设随机源是公正的）。
 
-		double array[] = {112, 111, 23, 456, 231 };
-		for (int i = 0; i < array.length; i++) {
-		list.add(new Double(array[i]));
-		}
+		List<Double> list = new ArrayList<>();
+        double array[] = {112, 111, 23, 456, 231};
+        for (int i = 0; i < array.length; i++) {
+            list.add(new Double(array[i]));
+        }
 
-		Collections.shuffle(list);
+        Collections.shuffle(list);
 
-		for (int i = 0; i < array.length; i++) {
-		System.out.println(li.get(i));
-		}
-		//结果：112,111,23,456,231
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(list.get(i) + " ");
+        }
+		// 结果：23.0 231.0 112.0 456.0 111.0
 
 3. 反转（Reverse）  
 	使用Reverse方法可以根据元素的自然顺序 对指定列表按降序进行排序。
 
-		double array[] = {112, 111, 23, 456, 231 };
-		for (int i = 0; i < array.length; i++) {
-			list.add(new Double(array[i]));
-		}
+		List<Double> list = new ArrayList<>();
+        double array[] = {112, 111, 23, 456, 231};
+        for (int i = 0; i < array.length; i++) {
+            list.add(new Double(array[i]));
+        }
 
-		Collections.reverse (list);
+        Collections.reverse(list);
 
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(li.get(i));
-		}
-		//结果：231,456,23,111,112
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(list.get(i) + " ");
+        }
+		// 结果：231.0 456.0 23.0 111.0 112.0
 
 4. 替换所有的元素（Fill）  
 	使用指定元素替换指定列表中的所有元素。
 
-		String str[] = {"dd","aa","bb","cc","ee"};
-		for(int j=0;j<str.length(); j++){
-			li.add(new String(str[j]));
-		}
+		List<String> list = new ArrayList<>();
+        String str[] = {"dd", "aa", "bb", "cc", "ee"};
+        for (int j = 0; j < str.length; j++) {
+            list.add(new String(str[j]));
+        }
 
-		Collections.fill(li,"aaa");
+        Collections.fill(list, "aaa");
 
-		for (int i = 0; i < li.size(); i++) {
-			System.out.println("list[" + i + "]=" + li.get(i));
-		}
-		//结果：aaa,aaa,aaa,aaa,aaa
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+		//结果：aaa aaa aaa aaa aaa
+
 5. 拷贝（Copy）  
 	用两个参数，一个目标 List 和一个源 List， 将源的元素拷贝到目标，并覆盖它的内容。目标 List 至少与源一样长。如果它更长，则在目标 List 中的剩余元素不受影响。  
 
@@ -167,14 +172,14 @@ List和Set的父类。
 
 ### 相互区别
 * Vector和ArrayList
- 1. Vector是线程同步的，所以它也是线程安全的，而arraylist是线程异步的，是不安全的。如果不考虑到线程的安全因素，一般用arraylist效率比较高。
- 2. 如果集合中的元素的数目大于目前集合数组的长度时，vector增长率为目前数组长度的100%,而arraylist增长率为目前数组长度的50%.如过在集合中使用数据量比较大的数据，用vector有一定的优势。
- 3. Vector由于使用了synchronized方法（线程安全）所以性能上比ArrayList要差，LinkedList使用双向链表实现存储，按序号索引数据需要进行向前或向后遍历，但是插入数据时只需要记录本项的前后项即可，所以插入数度较快
+ 1. Vector是线程同步的，所以它也是线程安全的，而ArrayList是线程异步的，是不安全的。如果不考虑到线程的安全因素，一般用ArrayList效率比较高。
+ 2. 如果集合中的元素的数目大于目前集合数组的长度时，Vector增长率为目前数组长度的100%,而ArrayList增长率为目前数组长度的50%.如过在集合中使用数据量比较大的数据，用Vector有一定的优势。
+ 3. Vector由于使用了synchronized方法（线程安全）所以性能上比ArrayList要差，LinkedList使用双向链表实现存储，按序号索引数据需要进行向前或向后遍历，但是插入数据时只需要记录本项的前后项即可，所以插入数度较快。
 
-* arraylist和linkedlist
+* Arraylist和Linkedlist
 	1. ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。
-	2. 对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。
-	3. 对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。
+	2. 对于随机访问get和set，ArrayList得优于LinkedList，因为LinkedList要移动指针。
+	3. 对于新增和删除操作add和remove，LinkedList比较占优势，因为ArrayList要移动数据。
 
 
 ---------------------------
@@ -273,19 +278,19 @@ Map没有继承Collection接口，Map提供key到value的映射。
 
     //最简洁、最通用的遍历方式
     for (Map.Entry<String, String> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + " = " + entry.getValue());
+        System.out.println(entry.getKey() + " = " + entry.getValue());
     }
 
     //方式2
     for (Iterator<Map.Entry<String, String>> it = map.entrySet().iterator(); it.hasNext();) {
-            Map.Entry<String, String> entry = it.next();
-            System.out.println(entry.getKey() + " = " + entry.getValue());
+        Map.Entry<String, String> entry = it.next();
+        System.out.println(entry.getKey() + " = " + entry.getValue());
     }
 
     //方式3
     for (Iterator<String> it = map.keySet().iterator(); it.hasNext();) {
-            String key = it.next();
-            System.out.println(key + " = " + map.get(key));
+        String key = it.next();
+        System.out.println(key + " = " + map.get(key));
     }
 
 ---------------------------
@@ -308,10 +313,13 @@ PriorityQueue的内部是一个min heap,会按照从上至下，从左至右的�
 [并发队列ConcurrentLinkedQueue和阻塞队列LinkedBlockingQueue用法](http://www.cnblogs.com/linjiqin/archive/2013/05/30/3108188.html)
 
 ### Queue Interface Structure  
-		       Throws exception	Returns special value  
-		Insert	add(e)	        offer(e)  
-		Remove	remove()	    poll()  
-		Examine	element()	    peek()
+
+|Operation |Throws exception|Returns special value |
+|--|--|--|
+|Insert|	add(e)	|  offer(e)  |
+|Remove|	remove()|  poll()  |
+|Examine|	element()| peek()|
+
 remove和poll方法都删除并返回Queue中的头元素（注意，并不是插入的第一个元素，因为有的Queue实现是排序的）。当Queue为空时，remove抛出NoSuchElementException异常，而poll返回null。
 
 element和peek返回但不删除Queue中的头元素，它们的区别类似remove与poll。
@@ -321,7 +329,8 @@ element和peek返回但不删除Queue中的头元素，它们的区别类似remo
 	queue.add(element); //注意：没有push方法或put方法
 	queue.offer(element);///与add的区别：
 	//1. add属于interface Collection<E>，而offer属于interface Deque<E>；
-	//2. When using a capacity-restricted queue, this method is generally preferable to add, which can fail to insert an element only by throwing an exception.（如果队列满了，add会抛异常，而offer返回false.
+	//2. When using a capacity-restricted queue, this method is generally preferable to add, 
+    // which can fail to insert an element only by throwing an exception.（如果队列满了，add会抛异常，而offer返回false)
 
 	queue.poll();		//注意：没有pop方法
 	queue.peek();
@@ -335,12 +344,12 @@ element和peek返回但不删除Queue中的头元素，它们的区别类似remo
 
 	//集合方式遍历，元素不会被移除
     for (Integer element : queue) {
-            System.out.println(element);
+        System.out.println(element);
     }
 
     //队列方式遍历，元素逐个被移除
     while (queue.peek() != null) {
-            System.out.println(queue.poll());
+        System.out.println(queue.poll());
     }
 
 
@@ -376,7 +385,7 @@ Java中的stack都不是严格意义上的stack了，例如可以：
 
 	Stack<Integer> s = new Stack<Integer>();
     for (int i = 0; i < 10; i++) {
-            s.push(i);
+        s.push(i);
     }
     //集合遍历方式
     for (Integer element : s) {
@@ -387,7 +396,7 @@ Java中的stack都不是严格意义上的stack了，例如可以：
 	//while (s.peek()!=null) {
     //不健壮的判断方式，容易抛异常，正确写法是下面的
     while (!s.empty()) {
-		System.out.println(s.pop());
+        System.out.println(s.pop());
     }
 
 ---------------

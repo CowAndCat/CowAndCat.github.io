@@ -27,44 +27,44 @@ submit()方法回产生Future对象，它用Callable返回结果的特定类型�
 
 #### 3.1 实现Runnable接口来创建Thread线程：
 
-	class SomeRunnable implements Runnable{
-		public void run(){
-			//do something here
-		}
-	}
+    class SomeRunnable implements Runnable{
+        public void run(){
+            //do something here
+        }
+    }
 
-	//调用
-	Thread someThread = new Thread(new SomeRunnable());
-	someThread.start();
+    //调用
+    Thread someThread = new Thread(new SomeRunnable());
+    someThread.start();
 
 方法执行完，线程就消亡了。
 
 #### 3.2实现Callable接口来创建Thread线程
 
-	public interface Callable<V>   { 
-		V call（） throws Exception;  
-	}
+    public interface Callable<V> { 
+        V call（） throws Exception;  
+    }
 
-	class SomeCallable<Integer> implements Callable<Integer>{
-		public Integer call() throws Exception{
-			//do something here
-			//return new Random().nextInt(100);
-		}
-	}
+    class SomeCallable<Integer> implements Callable<Integer> {
+        public Integer call() throws Exception{
+            //do something here
+            //return new Random().nextInt(100);
+        }
+    }
 
-	//调用
-	FutureTask<Integer> future = new FutureTask<Integer>(callable);  
+    //调用
+    FutureTask<Integer> future = new FutureTask<Integer>(callable);  
     new Thread(future).start();  
-	future.get()；
+    future.get()；
 
 #### 3.3 继承Thread类来创建
 
-	class SomeThread extends Thread{
-		public void run(){
-			//do something here
-		}
-	}
+    class SomeThread extends Thread {
+        public void run() {
+            //do something here
+        }
+    }
 
-	//调用
-	Thread someThread = new SomeThread();
-	someThread.start();
+    //调用
+    Thread someThread = new SomeThread();
+    someThread.start();

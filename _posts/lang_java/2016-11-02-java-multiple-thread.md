@@ -48,19 +48,18 @@ Executors可以创建的三种(JAVA8增加了一种，共四种)线程池的特�
 这些方法都可以配合接口ThreadFactory的实例一起使用。并且返回一个ExecutorService接口的实例。
 
 ```
-	package com.zj.concurrency.executors;
-	import java.util.concurrent.ExecutorService;
-	import java.util.concurrent.Executors;
-	 
-	public class FixedThreadPool {
-	    public static void main(String[] args) {
-	       ExecutorService exec = Executors.newFixedThreadPool(2);
-	       for (int i = 0; i < 5; i++)
-	           exec.execute(new MyThread(i));
-	       exec.shutdown(); //可以控制关闭
-	    }
-	}
-
+package com.zj.concurrency.executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+ 
+public class FixedThreadPool {
+    public static void main(String[] args) {
+       ExecutorService exec = Executors.newFixedThreadPool(2);
+       for (int i = 0; i < 5; i++)
+           exec.execute(new MyThread(i));
+       exec.shutdown(); //可以控制关闭
+    }
+}
 ```
 
 

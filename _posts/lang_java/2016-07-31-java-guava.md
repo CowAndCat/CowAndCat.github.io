@@ -70,8 +70,8 @@ Multiset占据了List和Set之间的一个灰色地带：允许重复，但是�
 ## 5. Concurrency（并发）
 强大,简单的抽象,让我们更容易实现简单正确的并发性代码。
 
-　　1. ListenableFuture（可监听的Future）: Futures,用于异步完成的回调。
-　　2. Service: 控制事件的启动和关闭，为你管理复杂的状态逻辑。
+1. ListenableFuture（可监听的Future）: Futures,用于异步完成的回调。
+2. Service: 控制事件的启动和关闭，为你管理复杂的状态逻辑。
 
 ## 6. Strings
 一个非常非常有用的字符串工具类: 提供 splitting，joining， padding 等操作。
@@ -254,8 +254,6 @@ Code:
 -  ...
 
 # Final、参考
->[Google Guava官方教程（中文版）](http://ifeve.com/google-guava/)
-
->[http://ifeve.com/google-guava-listenablefuture/](http://ifeve.com/
-
-> [http://www.cnblogs.com/peida/p/Guava.html](http://www.cnblogs.com/peida/p/Guava.html)
+>[Google Guava官方教程（中文版）](http://ifeve.com/google-guava/)  
+>[http://ifeve.com/google-guava-listenablefuture/](http://ifeve.com/google-guava-listenablefuture/)  
+>[http://www.cnblogs.com/peida/p/Guava.html](http://www.cnblogs.com/peida/p/Guava.html)
