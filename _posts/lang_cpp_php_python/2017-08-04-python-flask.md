@@ -65,15 +65,13 @@ main.py:
 
 1. 配置使用YAML：
 
-    pip install PyYAML
+        # pip install PyYAML
 
-    import yaml
-    Conf = yaml.load(file('../conf.yml', 'r'))
-    print Conf['conf']
+        import yaml
+        Conf = yaml.load(file('../conf.yml', 'r'))
+        print Conf['conf']
 
-2. python import的层级关系
-
-[http://www.cnblogs.com/kex1n/p/5971590.html](http://www.cnblogs.com/kex1n/p/5971590.html)
+2. python import的层级关系: [http://www.cnblogs.com/kex1n/p/5971590.html](http://www.cnblogs.com/kex1n/p/5971590.html)
 
 
 

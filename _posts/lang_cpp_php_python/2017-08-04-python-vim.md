@@ -75,7 +75,7 @@ comments: false
 
         syntax on
 
-2. 如果此时语法还是没有高亮显示，那么在~/.bash_profile(或在/etc目录下的profile文件)中添加以下语句：
+2. 如果此时语法还是没有高亮显示，那么在`~/.bash_profile`(或在/etc目录下的profile文件)中添加以下语句：
 
         export TERM=xterm-color
 

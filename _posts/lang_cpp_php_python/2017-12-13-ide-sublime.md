@@ -16,7 +16,7 @@ REF: [https://segmentfault.com/a/1190000000505218](https://segmentfault.com/a/11
 - Command + D 选中一个单词
 - Command + L 选中一行
 - Command + A 全选
-- Ctrl + Command + M` 选中括号内所有内容 (编写CSS或JS时非常实用)
+- Ctrl + Command + M 选中括号内所有内容 (编写CSS或JS时非常实用)
 
 Sublime Text还支持一次选中多行的操作：Furthermore, Sublime Text brings lets us select multiple lines at once, which can significantly boost your productivity. There are several ways to perform this feature:
 
