@@ -145,12 +145,36 @@ a         { color: #91736b; text-decoration: none; }
 
 .main {
     float: left;
-    width: 900px;
+    width: 600px;
     padding: 40px 30px;
     min-height: 600px;
     height: auto;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
     background: #fffefe url(../images/cnt-top.jpg) repeat-x 0 0;/*#e3ded8*/
+}
+
+@media screen and (min-width:960px) {
+    .main {
+        width: 900px;
+    }
+}
+@media screen and (max-width:650px){/*宽度小于等于该值,同理*/
+    .main {
+        width: 360px;
+    }
+    
+    .main .article h1 { font-size: 20px; color: #4d4d4d; }
+    .main .article h2 { font-size: 18px; color: #4d4d4d; }
+    .main .article h3 { font-size: 16px; color: #4d4d4d; }
+    .main .article h4 { font-size: 14px; color: #4d4d4d; }
+    .main .article h5 { color: #4d4d4d; }
+    .main .article h6 { color: #4d4d4d; }
+
+    .main .article .title {
+        font-size: 22px;
+        line-height: 32px;
+        border-bottom: 4px double rgba(0, 0, 0, 0.1);
+    }
 }
 
 .main .article {
