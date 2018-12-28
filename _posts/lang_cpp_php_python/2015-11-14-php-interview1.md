@@ -10,7 +10,7 @@ comments: false
 - 利用readonly 设置指定内容的只读属性
 - 利用disabled 实现
 
-### 1.2 在什么情况下，$name 与 $_POST['name']可以通用？
+### 1.2 在什么情况下，$name 与 $\_POST['name']可以通用？
 
 在php.ini中register_globals=On时，它们才都可以获取form表单中表单元素name的值。
 

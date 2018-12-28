@@ -55,3 +55,15 @@ comments: true
         @Component
         @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
         public class ExecutorServiceProxy {...}
+
+## 3. @Bean(destroyMethod = "shutdown")
+
+使用javaConfig配置的bean，如果存在close或者shutdown方法，则在bean销毁时会自动执行该方法，如果你不想执行该方法，则添加@Bean(destroyMethod="")来防止触发销毁方法.
+
+例如：
+
+    <bean id="xxx" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+
+BasicDataSource提供了close()方法关闭数据源，所以必须设定destroy-method=”close”属性， 以便Spring容器关闭时，数据源能够正常关闭；销毁方法调用close(),是将连接关闭，并不是真正的把资源销毁。
+
+还可以理解成：当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用.
