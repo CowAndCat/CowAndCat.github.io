@@ -153,30 +153,6 @@ a         { color: #91736b; text-decoration: none; }
     background: #fffefe url(../images/cnt-top.jpg) repeat-x 0 0;/*#e3ded8*/
 }
 
-@media screen and (min-width:960px) {
-    .main {
-        width: 900px;
-    }
-}
-@media screen and (max-width:650px){/*宽度小于等于该值,同理*/
-    .main {
-        width: 360px;
-    }
-    
-    .main .article h1 { font-size: 20px; color: #4d4d4d; }
-    .main .article h2 { font-size: 18px; color: #4d4d4d; }
-    .main .article h3 { font-size: 16px; color: #4d4d4d; }
-    .main .article h4 { font-size: 14px; color: #4d4d4d; }
-    .main .article h5 { color: #4d4d4d; }
-    .main .article h6 { color: #4d4d4d; }
-
-    .main .article .title {
-        font-size: 22px;
-        line-height: 32px;
-        border-bottom: 4px double rgba(0, 0, 0, 0.1);
-    }
-}
-
 .main .article {
     line-height: 1.6;
     position: relative;
@@ -761,4 +737,57 @@ a         { color: #91736b; text-decoration: none; }
     padding-top: 20px;
     height: 80px;
     margin: 0 auto;
+}
+
+@media screen and (min-width:960px) {
+    .main {
+        width: 900px;
+    }
+
+    .container {
+        width: 1280px;
+    }
+}
+@media screen and (max-width:650px){/*宽度小于等于该值,同理*/
+    .main {
+        width: 370px;
+        padding: 30px 10px;
+    }
+    
+    .main .article h1 { font-size: 20px;}
+    .main .article h2 { font-size: 18px;}
+    .main .article h3 { font-size: 16px;}
+    .main .article h4 { font-size: 14px;}
+
+    .main .article .title {
+        font-size: 22px;
+        line-height: 32px;
+        border-bottom: 4px double rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        width: 420px;
+    }
+
+    .container {
+        width: 380px;
+    }
+
+    .nav {
+        width: 348px;
+        padding-top: 2px;
+        /*float: left;*/
+    }
+
+    .follow {
+        float: left;
+        width: 340px;
+        padding-top: 40px;
+        height: 30px;
+        text-align: center;
+    }
+
+    .follow a {
+        float: right;
+    }
 }
