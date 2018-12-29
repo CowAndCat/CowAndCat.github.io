@@ -381,7 +381,7 @@ a         { color: #91736b; text-decoration: none; }
 .main .pagination-list {
     margin-left: 10px;
     width: 550px;
-    height: 32px;
+    height: 52px;
     line-height: 32px;
     float: left;
 }
@@ -750,7 +750,7 @@ a         { color: #91736b; text-decoration: none; }
 }
 @media screen and (max-width:650px){/*宽度小于等于该值,同理*/
     .main {
-        width: 370px;
+        width: 356px;
         padding: 30px 10px;
     }
     
@@ -766,22 +766,22 @@ a         { color: #91736b; text-decoration: none; }
     }
 
     .header {
-        width: 420px;
+        width: 375px;
     }
 
     .container {
-        width: 380px;
+        width: 375px;
     }
 
     .nav {
-        width: 348px;
+        width: 300px;
         padding-top: 2px;
         /*float: left;*/
     }
 
     .follow {
         float: left;
-        width: 340px;
+        width: 290px;
         padding-top: 40px;
         height: 30px;
         text-align: center;
@@ -789,5 +789,19 @@ a         { color: #91736b; text-decoration: none; }
 
     .follow a {
         float: right;
+    }
+    
+    ul, ol {
+        margin-left: 0em;
+    }
+
+    .main .pagination-list {
+        margin-left: 10px;
+        width: 300px;
+        height: 132px;
+    }
+
+    .aside {
+        margin-left: 20px;
     }
 }
