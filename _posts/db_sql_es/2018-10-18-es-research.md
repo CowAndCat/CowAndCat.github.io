@@ -5,6 +5,8 @@ category: ES
 comments: false
 ---
 
+logback能通过配置将日志append到kafka。
+
 # 一、 ElasticSearch简介
 
 ElasticSearch是一个基于Lucene的搜索服务器(但是，你没法直接用 Lucene，必须自己写代码去调用它的接口。Elastic 是 Lucene 的封装，提供了 REST API 的操作接口，开箱即用。)。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。

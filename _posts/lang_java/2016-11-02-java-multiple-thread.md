@@ -4,10 +4,11 @@ title: Java中多线程
 category: java
 comments: false
 ---
+面试准备：JDK 自带的四种线程池、ThreadPoolExecutor 类中的最重要的构造器里面的七个参数，再讲了下线程任务进入线程池和核心线程数、缓冲队列、最大线程数量比较。
+
 ## 1.线程池
 >Java线程池使用说明  
 >http://www.oschina.net/question/565065_86540
-
 
 线程池作用就是限制系统中执行线程的数量。
 
@@ -62,4 +63,95 @@ public class FixedThreadPool {
 }
 ```
 
+## 3. 线程池中ThreadPoolExecutor构造器参数介绍
+
+### 3.1 参数介绍
+线程池中ThreadPoolExecutor构造器有7个参数:
+
+    public ThreadPoolExecutor(int corePoolSize,
+                          int maximumPoolSize,
+                          long keepAliveTime,
+                          TimeUnit unit,
+                          BlockingQueue<Runnable> workQueue,
+                          ThreadFactory threadFactory,
+                          RejectedExecutionHandler handler) {
+      //...
+    }
+
+- 1.corePoolSize
+    核心池大小corePoolSize：表示线程池维护线程的最少数量
+- 2.maximumPoolSize  
+    最大池大小maximumPoolSize：表示线程池维护线程的最大数量
+- 3.workQueue  
+    阻塞队列workQueue：表示如果任务数量超过核心池大小，多余的任务添加到阻塞队列中
+- 3.1 corePoolSize、workQueue、maximumPoolSize的关系  
+    前提假设：向线程池每添加一个任务就sleep。也就是说假设任务数与线程数一一对应，每添加一个任务就对应的创建一个线程，并且一直等待其他线程。 
+    因为可能某一个线程执行了两个任务，看不出效果。   
+    注意，线程池并没有标记哪个线程是核心线程，哪个是非核心线程，线程池只关心核心线程的数量。  
+    a.
+
+        if 任务数 <= 核心池大小 
+            则每添加一个任务就会创建一个线程来执行该任务,线程最大数量等于核心池大小
+
+    b.
+
+        if 任务数 > 核心池大小 && 任务数 <= 核心池大小 + 阻塞队列大小
+            则线程数量等于核心池大小，其余任务放入到阻塞队列中
+
+    c.
+
+        if 任务数 > 核心池大小 + 阻塞队列大小 && 任务数 <= 最大池大小
+            则会创建新的线程来处理新的任务
+
+    d.
+
+        if 任务数 > 最大池大小
+            则会采用拒绝策略handler
+
+- 4.参数keepAliveTime
+    表示空闲线程的存活时间。
+- 5.参数unit
+    表示keepAliveTime的单位。
+- 6.参数threadFactory
+    指定创建线程的工厂，例如：Executors.defaultThreadFactory()
+- 7.参数handler
+    线程池对拒绝任务的处理策略（表示当workQueue已满，且池中的线程数达到maximumPoolSize时，线程池拒绝添加新任务时采取的策略。）
+
+在线程池中常用的阻塞队列有以下2种：
+
+- （1）SynchronousQueue<Runnable>：此队列中不缓存任何一个任务。向线程池提交任务时，如果没有空闲线程来运行任务，则入列操作会阻塞。当有线程来获取任务时，出列操作会唤醒执行入列操作的线程。从这个特性来看，SynchronousQueue是一个无界队列，因此当使用SynchronousQueue作为线程池的阻塞队列时，参数maximumPoolSizes没有任何作用。（生产者和消费者互相等待对方，握手，然后一起离开。）
+- （2）LinkedBlockingQueue<Runnable>：顾名思义是用链表实现的队列，可以是有界的，也可以是无界的，但在Executors中默认使用无界的。
+
+handler一般可以采取以下四种取值：
+
+|取值|解释|
+|--|--|
+|ThreadPoolExecutor.AbortPolicy()|抛出RejectedExecutionException异常
+|ThreadPoolExecutor.CallerRunsPolicy()|由向线程池提交任务的线程来执行该任务
+|ThreadPoolExecutor.DiscardOldestPolicy()|抛弃最旧的任务（最先提交而没有得到执行的任务）|
+|ThreadPoolExecutor.DiscardPolicy()|抛弃当前的任务|
+
+### 3.2 其它有关涉及池中线程数量的相关方法
+
+    public void allowCoreThreadTimeOut(boolean value)
+    public int prestartAllCoreThreads()
+
+默认情况下，当池中有空闲线程，且线程的数量大于corePoolSize时，空闲时间超过keepAliveTime的线程会自行销毁，池中仅仅会保留corePoolSize个线程。如果线程池中调用了allowCoreThreadTimeOut这个方法，则空闲时间超过keepAliveTime的线程全部都会自行销毁，而不必理会corePoolSize这个参数。
+
+如果池中的线程数量小于corePoolSize时，调用prestartAllCoreThreads方法，则无论是否有待执行的任务，线程池都会创建新的线程，直到池中线程数量达到corePoolSize。
+
+### 3.3 ThreadPoolExecutor和四个创建线程池函数的关系。
+
+为了防止使用者错误搭配ThreadPoolExecutor构造函数的各个参数，以及更加方便简洁的创建ThreadPoolExecutor对象，JavaSE中又定义了Executors类，Eexcutors类提供了创建常用配置线程池的方法。
+
+newCachedThreadPool：使用SynchronousQueue作为阻塞队列，队列无界，线程的空闲时限为60秒。这种类型的线程池非常适用IO密集的服务，因为IO请求具有密集、数量巨大、不持续、服务器端CPU等待IO响应时间长的特点。
+
+newFixedThreadPool：需指定核心线程数，核心线程数和最大线程数相同，使用LinkedBlockingQueue 作为阻塞队列，队列无界，线程空闲时间0秒。
+
+newSingleThreadExecutor：池中只有一个线程工作，阻塞队列无界，它能保证按照任务提交的顺序来执行任务。
+
+newScheduledThreadPool：创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求。
+
+## REF
+>[线程池中ThreadPoolExecutor构造器参数介绍](https://blog.csdn.net/xiangliqu/article/details/78223104)
 

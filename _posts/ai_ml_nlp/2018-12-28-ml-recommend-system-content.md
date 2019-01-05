@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 其他推荐系统实战
+title: 其他推荐系统算法
 category: ML
 comments: false
 ---

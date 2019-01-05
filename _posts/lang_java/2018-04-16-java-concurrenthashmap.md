@@ -9,6 +9,7 @@ comments: false
 1. HashMap,Hashtable和ConcurrentHashMap的异同
 2. ConcurrentHashMap 在JDK1.7和1.8里实现异同
 3. 注意事项
+4. 并发读的实现。
 
 # 一、HashMap,Hashtable和ConcurrentHashMap的异同
 
@@ -190,9 +191,41 @@ put方法中，链接新节点的下一个节点（HashEntry.setNext()）以及�
 JDK1.7 使用的是单链表的头插入方式，如果同个位置发生hash碰撞，原来位置的节点会不断往后移动。每次扩容后，顺序会倒。
 （红黑树是在jdk1.8后引入的，之前的版本的HashEntry还是数组。而且jdk1.8不会像1.7一样再次计算hash，而且jdk1.8扩容的顺序不会再变。）
 
+## 四、CHM支持完全并发的读
+ConcurrentHashMap完全允许多个读操作并发进行，读操作并不需要加锁。（事实上，ConcurrentHashMap支持完全并发的读以及一定程度并发的写。）
+
+    static final class HashEntry<K,V> {  
+        final K key;  
+        final int hash;  
+        volatile V value;  
+        final HashEntry<K,V> next;  
+  
+        HashEntry(K key, int hash, HashEntry<K,V> next, V value) {  
+            this.key = key;  
+            this.hash = hash;  
+            this.next = next;  
+            this.value = value;  
+        }  
+  
+        @SuppressWarnings("unchecked")  
+        static final <K,V> HashEntry<K,V>[] newArray(int i) {  
+            return new HashEntry[i];  
+        }  
+    }  
+
+可以看到除了value不是final的，其它值都是final的，这意味着不能从hash链的中间或尾部添加或删除节点，因为这需要修改next引用值，所有的节点的修改只能从头部开始。
+
+**对于put操作，可以一律添加到Hash链的头部。但是对于remove操作，可能需要从中间删除一个节点，这就需要将要删除节点的前面所有节点整个复制一遍，最后一个节点指向要删除结点的下一个结点。**为了确保读操作能够看到最新的值，将value设置成volatile，这避免了加锁。 
+
+remove操作要注意一个问题：如果某个读操作在删除时已经定位到了旧的链表上，那么此操作仍然将能读到数据，只不过读取到的是旧数据而已，这在多线程里面是没有问题的（也算是一个弱一致性问题）。
+
+**在 ConcurrentHashMap 中，不允许用 null作为键和值**，当读线程读到某个 HashEntry 的 value 域的值为 null 时，便知道产生了冲突——发生了重排序现象，需要加锁后重新读入这个 value 值。这些特性互相配合，使得读线程即使在不加锁状态下，也能正确访问 ConcurrentHashMap。 
+
+## REF
 
 >[http://www.importnew.com/26049.html](http://www.importnew.com/26049.html)
->[https://www.cnblogs.com/study-everyday/p/6430462.html](https://www.cnblogs.com/study-everyday/p/6430462.html)
+>[https://www.cnblogs.com/study-everyday/p/6430462.html](https://www.cnblogs.com/study-everyday/p/6430462.html)  
+>[https://www.cnblogs.com/slwenyi/p/6393829.html](https://www.cnblogs.com/slwenyi/p/6393829.html)
 
 
 
