@@ -5,7 +5,7 @@ category: java
 comments: false
 ---
 
-面试被问到，扫盲篇。（记住下面关键的图）
+扫盲篇。（记住下面关键的图）
 
 ## 一、JVM线程在Linux中的形态
 
