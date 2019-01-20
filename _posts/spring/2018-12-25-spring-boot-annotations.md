@@ -67,3 +67,70 @@ comments: true
 BasicDataSource提供了close()方法关闭数据源，所以必须设定destroy-method=”close”属性， 以便Spring容器关闭时，数据源能够正常关闭；销毁方法调用close(),是将连接关闭，并不是真正的把资源销毁。
 
 还可以理解成：当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用.
+
+## 4.  @PostConstruct 和 @PreConstruct
+这两个注解被用来修饰一个非静态的void()方法.而且这个方法不能有抛出异常声明。
+
+    @PostConstruct                                 //方式1
+    public void someMethod(){
+        ...
+    }
+
+    public @PostConstruct void someMethod(){        //方式2
+        ...  
+    }
+
+@PostConstruct说明:  
+被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的init()方法。被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
+
+@PreDestroy说明:  
+被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前。
+
+## 5. `@Pointcut("within(com.baidu.bce..*Controller) && @target(classRequestMapping) && @annotation(methodRequestMapping)")`
+
+这是一个使用 AspectJ 风格切面的配置，使得 spring 的切面配置大大简化。参考：[详解Spring 框架中切入点 pointcut 表达式的常用写法](https://www.jb51.net/article/110461.htm)
+
+Pointcut的定义包括两个部分：Pointcut表示式(expression)和Pointcut签名(signature)
+
+`within(com.baidu.bce..*Controller)`: 表示在`com.baidu.bce`包或其子包中的任意连接点的所有以Controller结尾的类  
+
+`target(SomeType)`：when the target object is of type SomeType (当对象是某种类型时)
+
+@within和@target针对类的注解,@annotation是针对方法的注解。
+
+## 6. @Around("requestMappingPointcut(classRequestMapping, methodRequestMapping)")
+
+@Before/@After 是在所拦截方法执行之前/之后执行一段逻辑。@Around是可以同时在所拦截方法的前后执行一段逻辑。
+
+    @Aspect
+    @Component
+    public class LogIntercept {
+
+        @Pointcut("execution(public * com.itsoft.action..*.*(..))")
+        public void recordLog(){}
+
+        @Before("recordLog()")
+        public void before() {
+            this.printLog("已经记录下操作日志@Before 方法执行前");
+        }
+
+        @Around("recordLog()")
+        public void around(ProceedingJoinPoint pjp) throws Throwable{
+            this.printLog("已经记录下操作日志@Around 方法执行前");
+            pjp.proceed();
+            this.printLog("已经记录下操作日志@Around 方法执行后");
+        }
+
+        @After("recordLog()")
+        public void after() {
+            this.printLog("已经记录下操作日志@After 方法执行后");
+        }
+
+        private void printLog(String str){
+            System.out.println(str);
+        }
+    }
+
+虽然Around功能强大，但通常需要在线程安全的环境下使用。因此，如果使用普通的Before、After、AfterReturing增强方法就可以解决的事情，就没有必要使用Around增强处理了。
+
+有时间看看AspectJ

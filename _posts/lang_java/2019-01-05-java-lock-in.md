@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java锁--Lock实现原理(底层实现)
-category: tech
+category: java
 comments: false
 ---
 ## 一、synchronized的实现
