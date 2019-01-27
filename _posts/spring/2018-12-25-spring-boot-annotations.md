@@ -88,6 +88,10 @@ BasicDataSource提供了close()方法关闭数据源，所以必须设定destroy
 
 ## 5. `@Pointcut("within(com.baidu.bce..*Controller) && @target(classRequestMapping) && @annotation(methodRequestMapping)")`
 
+    @Pointcut("within(com.baidu.bce..*Controller) && @target(classRequestMapping) && @annotation(methodRequestMapping)")
+    public void requestMappingPointcut(RequestMapping classRequestMapping, RequestMapping methodRequestMapping) {
+    }
+
 这是一个使用 AspectJ 风格切面的配置，使得 spring 的切面配置大大简化。参考：[详解Spring 框架中切入点 pointcut 表达式的常用写法](https://www.jb51.net/article/110461.htm)
 
 Pointcut的定义包括两个部分：Pointcut表示式(expression)和Pointcut签名(signature)
@@ -133,4 +137,83 @@ Pointcut的定义包括两个部分：Pointcut表示式(expression)和Pointcut�
 
 虽然Around功能强大，但通常需要在线程安全的环境下使用。因此，如果使用普通的Before、After、AfterReturing增强方法就可以解决的事情，就没有必要使用Around增强处理了。
 
+一个用@Pointcut和@Around的完整例子：
+
+    @Aspect
+    @Component
+    public class LatencyAspect {
+
+        @Pointcut("@annotation(latency)")
+        public void latencyPointcut(Latency latency) {
+        }
+
+        @Around("latencyPointcut(latency)")
+        public Object around(ProceedingJoinPoint joinPoint, Latency latency) throws Throwable {
+            long start = System.currentTimeMillis();
+            try {
+                Object object = joinPoint.proceed(); 
+                long diff = System.currentTimeMillis() - start;
+                LatencyRecorderMap.get(String.format("latency_%s", latency.value())).supply(diff);
+                return object;
+            } catch (Throwable ex) {
+                long diff = System.currentTimeMillis() - start;
+                LatencyRecorderMap.get(String.format("latency_throw_%s", latency.value())).supply(diff);
+                throw ex;
+            }
+        }
+    }
+
+@Lantency仅仅是个包含value的注解
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface Latency {
+        String value();
+    }
+
+使用：
+
+    @Latency("vaas_image_classify")
+    private ImageClassifyResponse httpRequestEach(String url, ImageClassifyRequest request) throws IOException {
+        String response = BceInternalClient.request(url).post(Entity.json(request), String.class);
+        return JsonUtils.fromJsonString(response, ImageClassifyResponse.class);
+    }
+
 有时间看看AspectJ
+
+## 7. @Cacheable(value = "endpoint_urls")
+
+[《Spring缓存注解@Cacheable、@CacheEvict、@CachePut使用》](https://www.cnblogs.com/fashflying/p/6908028.html)
+
+    @Cacheable(value={"users"}, key="#user.id", condition="#user.id%2==0")
+    public User find(User user) {
+        System.out.println("find user by user " + user);
+        return user;
+    }
+
+当前方法的返回值会被缓存在users这个Cache上，以user.id作为key来区分，只缓存id为偶数的那些数据。（注意value、key、condition的使用）
+
+value表示清除操作是发生在哪些Cache上的（对应Cache的名称）；key表示需要清除的是哪个key，如未指定则会使用默认策略生成的key；condition表示清除操作发生的条件。
+
+在支持Spring Cache的环境下，对于使用@Cacheable标注的方法，Spring在每次执行前都会检查Cache中是否存在相同key的缓存元素，如果存在就不再执行该方法，而是直接从缓存中获取结果进行返回，否则才会执行并将返回结果存入指定的缓存中。
+
+@CachePut也可以声明一个方法支持缓存功能。与@Cacheable不同的是使用@CachePut标注的方法在执行前不会去检查缓存中是否存在之前执行过的结果，而是**每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中**。
+
+    @CachePut("users")//每次都会执行方法，并将结果存入指定的缓存中
+    public User find(Integer id) {
+        return null;
+    }
+
+@CachePut也可以标注在类上和方法上。使用@CachePut时我们可以指定的属性跟@Cacheable是一样的。
+
+    @CacheEvict(value = "cache1", key = "#endpoint")
+    void func(){
+    }
+
+@CacheEvict是用来标注在需要清除缓存元素的方法或类上的。@CacheEvict可以指定的属性有value、key、condition、allEntries和beforeInvocation。
+
+allEntries是boolean类型，表示是否需要清除缓存中的所有元素。默认为false，表示不需要。
+
+beforeInvocation清除操作默认是在对应方法成功执行之后触发的，即方法如果因为抛出异常而未能成功返回时也不会触发清除操作。使用beforeInvocation可以改变触发清除操作的时间，当我们指定该属性值为true时，Spring会在调用该方法之前清除缓存中的指定元素。
+
+@Caching注解可以让我们在一个方法或者类上同时指定多个Spring Cache相关的注解。其拥有三个属性：cacheable、put和evict，分别用于指定@Cacheable、@CachePut和@CacheEvict。
