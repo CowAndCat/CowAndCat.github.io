@@ -1,7 +1,7 @@
 ---
 layout: post
 title: mysql的分页优化
-category: db
+category: mysql
 comments: false
 ---
 

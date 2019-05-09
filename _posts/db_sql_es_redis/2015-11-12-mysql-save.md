@@ -1,7 +1,7 @@
 ---
 layout: post
 title: mysql的存储过程
-category: db
+category: mysql
 comments: false
 ---
 

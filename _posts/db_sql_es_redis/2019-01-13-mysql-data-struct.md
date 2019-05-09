@@ -1,7 +1,7 @@
 ---
 layout: post
 title: mysql的索引实现
-category: db
+category: mysql
 comments: false
 ---
 
