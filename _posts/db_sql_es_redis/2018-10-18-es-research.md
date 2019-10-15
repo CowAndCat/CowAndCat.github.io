@@ -5,13 +5,12 @@ category: ES
 comments: false
 ---
 
-logback能通过配置将日志append到kafka。
 
 # 一、 ElasticSearch简介
 
 ElasticSearch是一个基于Lucene的搜索服务器(但是，你没法直接用 Lucene，必须自己写代码去调用它的接口。Elastic 是 Lucene 的封装，提供了 REST API 的操作接口，开箱即用。)。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。
 
-它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。在统计以及日志类时间序的数据的存储和分析以及可视化父母，是引领者。
+它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。在统计以及日志类时间序的数据的存储和分析以及可视化方面，是引领者。
 
 国内：百度（在casio、云分析、网盟、预测、文库、直达号、钱包、风控等业务上都应用了ES，单集群每天导入30TB+数据，总共每天60TB+）、新浪（见大数据架构--log），阿里巴巴、腾讯等公司均有对ES的使用。
 
@@ -112,6 +111,8 @@ Kibana 是一个开源的分析和可视化平台，旨在与 Elasticsearch 合�
 # 五、Logstash 基础入门
 
 Logstash 是一个开源的数据收集引擎，它具有备实时数据传输能力。它可以统一过滤来自不同源的数据，并按照开发者的制定的规范输出到目的地。
+
+logback能通过配置将日志append到kafka。
 
 elasticsearch+Logstash+kibana 合成ELK。(整一套软件可以当作一个MVC模型，logstash是controller层，Elasticsearch是一个model层，kibana是view层。)
 
