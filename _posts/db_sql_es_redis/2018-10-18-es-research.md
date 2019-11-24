@@ -5,7 +5,6 @@ category: ES
 comments: false
 ---
 
-
 # 一、 ElasticSearch简介
 
 ElasticSearch是一个基于Lucene的搜索服务器(但是，你没法直接用 Lucene，必须自己写代码去调用它的接口。Elastic 是 Lucene 的封装，提供了 REST API 的操作接口，开箱即用。)。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。
@@ -124,9 +123,9 @@ elasticsearch+Logstash+kibana 合成ELK。(整一套软件可以当作一个MVC�
 
 ## REF
 
-> [Elasticsearch增、删、改、查操作深入详解](https://blog.csdn.net/laoyang360/article/details/51931981?utm_source=blogxgwz2)
-> [Logstash 基础入门](https://www.extlight.com/2017/10/30/Logstash-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/)
-> [elasticsearch性能测试工具rally深入详解](https://blog.csdn.net/laoyang360/article/details/52155481)
+> [Elasticsearch增、删、改、查操作深入详解](https://blog.csdn.net/laoyang360/article/details/51931981?utm_source=blogxgwz2)  
+> [Logstash 基础入门](https://www.extlight.com/2017/10/30/Logstash-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/)  
+> [elasticsearch性能测试工具rally深入详解](https://blog.csdn.net/laoyang360/article/details/52155481)  
 > [Elasticsearch 权威指南（中文版）](https://es.xiaoleilu.com/)
 
 
