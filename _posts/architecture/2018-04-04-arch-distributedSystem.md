@@ -49,9 +49,6 @@ Kafka是由Apache软件基金会开发的一个开源流处理平台，由Scala�
 - Event Sourcing: 事件溯源
 - Commit Log: 类似日志数据库，用于恢复数据。类似 BookKeeper.
 
-## 三、再窥一个——ZooKeeper
-
-TBC
 
 
 
