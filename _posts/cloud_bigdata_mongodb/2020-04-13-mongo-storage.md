@@ -43,8 +43,9 @@ journal日志为mongodb提供了数据保障能力，它本质上与mysql binlog
 开启journal日志功能，将会导致write性能有所降低，可能降低5~30%，因为它直接加剧了磁盘的写入负载，我们可以将journal日志单独放置在其他磁盘驱动器中来提高写入并发能力（与data files分别使用不同的磁盘驱动器）。
 
 如果你希望数据尽可能的不丢失，可以考虑：
-1）减小commitIntervalMs的值 
-2）每个write指定“write concern”中指定“j”参数为true  
+
+1）减小commitIntervalMs的值  
+2）每个write指定“write concern”中指定“j”参数为true   
 3）最佳手段就是采用“replica set”架构模式，通过数据备份方式解决，同时还需要在“write concern”中指定“w”选项，且保障级别不低于“majority”。
 
 根据write并发量，journal日志文件为1G，如果指定了smallFiles配置项，则最大为128M，和data files一样journal文件也采用了“preallocated”方式，journal日志保存在dbpath下“journal”子目录中，一般会有三个journal文件，每个journal文件格式类似于“j.\_<序列数字>”。并不是每次buffer flush都生成一个新的journal日志，而是当前journal文件即将满时会预创建一个新的文件，journal文件中保存了write操作的记录，每条记录中包含write操作内容之外，还包含一个“lsn”（last sequence number），表示此记录的ID；此外我们会发现在journal目录下，还有一个“lsn”文件，这个文件非常小，只保存了一个数字，当write变更的数据被flush到磁盘中的data files后，也意味着这些数据已经持久化了，那么它们在“异常恢复”时也不需要了，那么其对应的journal日志将可以删除，“lsn”文件中记录的就是write持久化的最后一个journal记录的ID，此ID之前的write操作已经被持久写入data files，此ID之前的journal在“异常恢复”时则不需要关注；如果某个journal文件中最大 ID小于“lsn”，则此journal可以被删除或者重用。

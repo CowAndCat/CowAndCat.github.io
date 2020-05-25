@@ -1,6 +1,6 @@
 ---
 layout: post
-title: websocket 
+title: WebSocket 
 category: web
 comments: false
 --- 
@@ -101,6 +101,23 @@ public class WebSocketHandler {
     }
 }
 ```
+WebSocket接收的消息有两种，一种是Text,一种是Binary，分别对应上述的两种messages参数类型。可以只用一种。
+
+发送消息使用 `session.getBasicRemote().sendText()`或`session.getBasicRemote().sendBinary()`,也是可以发送Text或二进制内容。
+
+连接websocket使用类似于 `ws://172.18.17.151:8085/ws/v1/exam` 地址。
+
+在Chrome里可以使用 Simple WebSocket Client插件来调试。
+
+# 三、踩过的坑和Best practice
+
+建议先看一遍tomcat对websocket的使用介绍，就短短一页内容：http://tomcat.apache.org/tomcat-8.0-doc/web-socket-howto.html
+
+## 3.1 Socket连接调优
+
+在socket连接过程中，留给程序员可配置的内存大小，主要就两个参数：maxTextMessageBufferSize、maxBinaryMessageBufferSize，
+分别对应字符类消息和字节类消息的BufferSize，单位是byte，默认都是8192bytes。
+
 
 配置参数
 ```
@@ -126,22 +143,6 @@ public class WebSocketConfig {
     }
 }
 ```
-WebSocket接收的消息有两种，一种是Text,一种是Binary，分别对应上述的两种messages参数类型。可以只用一种。
-
-发送消息使用 `session.getBasicRemote().sendText()`或`session.getBasicRemote().sendBinary()`,也是可以发送Text或二进制内容。
-
-连接websocket使用类似于 `ws://172.18.17.151:8085/ws/v1/exam` 地址。
-
-在Chrome里可以使用 Simple WebSocket Client插件来调试。
-
-# 三、踩过的坑和Best practice
-
-建议先看一遍tomcat对websocket的使用介绍，就短短一页内容：http://tomcat.apache.org/tomcat-8.0-doc/web-socket-howto.html
-
-## 3.1 Socket连接调优
-
-在socket连接过程中，留给程序员可配置的内存大小，主要就两个参数：maxTextMessageBufferSize、maxBinaryMessageBufferSize，
-分别对应字符类消息和字节类消息的BufferSize，单位是byte，默认都是8192bytes。
 
 在scoket建立时，会预分配maxTextMessageBufferSize+maxBinaryMessageBufferSize的空间。所以，可以调小这两个数值来增加服务的websocket连接数。如果只用到其中一种消息类型（如Text），可以将另一种设置成0或很小的值。
 
@@ -295,7 +296,7 @@ public class EndpointConfigurator extends ServerEndpointConfig.Configurator {
 }
 
 ```
-第二步，在WebSocketHandler加上这个配置：
+第二步，在WebSocketHandler加上configurator配置，就用上面的EndpointConfigurator：
 ```
 @Slf4j
 @Component
