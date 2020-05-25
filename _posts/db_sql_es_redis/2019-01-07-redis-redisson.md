@@ -11,6 +11,7 @@ Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory
 Redisson在基于NIO的Netty框架上，充分的利用了Redis键值数据库提供的一系列优势，在Java实用工具包中常用接口的基础上，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合各富特色的分布式服务，更进一步简化了分布式环境中程序相互之间的协作。
 
 ### 1.1 支持的重要功能
+
 - 1.支持云托管服务模式（同时支持亚马逊云的ElastiCache Redis和微软云的Azure Redis Cache）:
     - 自动发现主节点变化
 - 2.支持Redis集群模式（同时支持亚马逊云的ElastiCache Redis Cluster和微软云的Azure Redis Cache）:
