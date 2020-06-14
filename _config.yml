@@ -125,7 +125,7 @@ username: cowandcat
 baseurl:
 safe: false
 highlighter: rouge #pygments
-plugins: [jekyll-paginate] #gem install jekyll-paginate
+plugins: [jekyll-paginate, jekyll-sitemap] #gem install jekyll-paginate
 
 title: MFG's Blog
 description: Good Good Coding, Day Day Up!

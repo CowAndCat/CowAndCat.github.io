@@ -30,7 +30,7 @@ HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，
 
 configurator可以去除掉。本文会用它来获取连接的IP（见下文）。
 
-@OnOpen是建立socket触发的事件；其他 @On*都对应上述表格中的事件。只有4种。
+@OnOpen是建立socket触发的事件；其他 @On\*都对应上述表格中的事件。只有4种。
 
 ```
 @Component
