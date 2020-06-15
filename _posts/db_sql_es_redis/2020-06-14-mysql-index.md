@@ -18,8 +18,9 @@ MySQL索引优化是考验一个程序员对技术理解和应用的试金石。
 先看看什么情况下不会走索引，或者说索引失效。当索引失效，就只能全表扫描来查询数据。
 
 - 负向条件查询不能使用索引，可以优化为in查询。不等于 （!=/<>）和 is not null ，以及not in/not like/not exists将无法使用到索引
-- or在大多数情况下会导致索引失效 （如： select a,b from table where a='a' or b>1 就会导致索引index_a_b失效）
+- or在大多数情况下会导致索引失效 （如： select a,b from table where a='a' or b>1 就会导致索引index_a_b失效）  
 如果想用or，又走索引， 只能将or条件中的每个列都加上索引：
+
 ```
 explain SELECT sub_task_id, type FROM plat_sub_task where sub_task_id = 'jfxrnsjgkphxxxyzwvp' or id=2 or create_time='2019-06-22 15:03:35';
 
@@ -31,6 +32,7 @@ Extra: 'Using union(uk_sub_task_id,PRIMARY,idx_createtime); Using where'
 ```
 index merge (Mysql5.0后的技术）说就是在用OR，AND连接的多个查询条件时，可以分别使用前后查询中的索引，然后将它们各自的结果合并交集或并集。 详见：https://dev.mysql.com/doc/refman/5.6/en/index-merge-optimization.html  
 注意，index merge要避免deep AND/OR 嵌套SQL，这里有两种优化方式：
+
 ```
 (x AND y) OR z => (x OR z) AND (y OR z)
 (x OR y) AND z => (x AND z) OR (y AND z)
@@ -104,8 +106,64 @@ Extra: Using where; Using index -- 执行状态说明，这里可以看到的坏
 - 如果是impossible where 表示用不着where，一般就是没查出来啥。
 - 如果此信息显示Using filesort或者Using temporary的话会很吃力，WHERE和ORDER BY的索引经常无法兼顾，如果按照WHERE来确定索引，那么在ORDER BY时，就必然会引起Using filesort，这就要看是先过滤再排序划算，还是先排序再过滤划算。
 
+## 1.3 using filesort
 
-## 1.3 索引覆盖
+在使用order by关键字的时候，如果待排序的内容不能由所使用的索引直接完成排序的话，那么mysql有可能就要进行文件排序。（using filesort不一定引起mysql的性能问题）
+
+注意：Using filesort仅仅表示没有使用索引的排序，事实上filesort这个名字很糟糕，并不意味着在硬盘上排序，filesort与文件无关。
+
+filesort是通过相应的排序算法,将取得的数据在内存或硬盘中进行排序。filesort使用的算法是QuickSort，即对需要排序的记录生成元数据进行分块排序，然后再使用mergesort方法合并块。
+
+在MySQL中filesort 的实现算法实际上是有两种：
+
+- 双路排序：是首先根据相应的条件取出相应的排序字段和可以直接定位行数据的行指针信息，然后在sort buffer(每个thread独享一片buffer区域）中进行排序。第二次去读取真正要返回的数据的。
+- 单路排序：是一次性取出满足条件行的所有字段，然后在sort buffer中进行排序。
+
+在MySQL4.1版本之前只有第一种排序算法双路排序，第二种算法是从MySQL4.1开始的改进算法，主要目的是为了减少第一次算法中需要两次访问表数据的 IO 操作，将两次变成了一次，但相应也会耗用更多的sortbuffer 空间。当然，MySQL4.1开始的以后所有版本同时也支持第一种算法。
+
+MySQL主要通过比较我们所设定的系统参数 max_length_for_sort_data的大小和Query 语句所取出的字段类型大小总和来判定需要使用哪一种排序算法。如果 max_length_for_sort_data更大，则使用第二种优化后的算法，反之使用第一种算法。所以如果希望 ORDER BY 操作的效率尽可能的高，一定要注意max_length_for_sort_data 参数的设置。如果filesort过程中，由于排序缓存的大小不够大，那么就可能会导致临时表的使用。
+
+
+优化方向：  
+1、修改逻辑，不在mysql中使用order by而是在应用中自己进行排序。  
+2、使用mysql索引，将待排序的内容放到索引中，直接利用索引的排序。
+
+例子（https://www.jianshu.com/p/85a4d7b3e5c0）：
+
+（1）explain select id from course where category_id>1 order by category_id;
+
+（2）explain select id from course where category_id>1 order by category_id,buy_times;
+
+根据最左前缀原则，order by后面的的category_id buy_times会用到组合索引，因为索引就是这两个字段
+
+（3）explain select id from course where buy_times > 1 order by category_id;
+
+根据最左前缀原则，order by后面的字段存在于索引中最左列，所以会走索引
+
+（4）explain select id from course where category_id>1 order by buy_times;
+
+（5）explain select id from course where category_id>1 order by buy_times,category_id;
+
+（6）explain select id from course where buy_times > 1 order by buy_times;
+
+根据最左前缀原则，order by后面的字段 没有索引中的最左列的字段，所以不会走索引，会产生using fillesort
+
+（7）explain select id from course order by buy_times desc,category_id asc;
+
+根据最最左前缀原则，order by后面的字段顺序和索引中的不符合，则会产生using filesort
+
+（8）explain select id from course order by category_id desc,buy_times asc;
+
+这一条虽然order by后面的字段和索引中字段顺序相同，但是一个是降序，一个是升序，所以也会产生using filesort，同时升序和同时降序就不会产生using filesort了
+
+## 1.4 using temporary
+
+Using temporary表示由于排序没有走索引、使用union、子查询连接查询、使用某些视图等原因（详见internal-temporary-tables），因此创建了一个内部临时表。注意这里的临时表可能是内存上的临时表，也有可能是硬盘上的临时表，理所当然基于内存的临时表的时间消耗肯定要比基于硬盘的临时表的实际消耗小。
+
+原文链接：https://blog.csdn.net/sz85850597/java/article/details/91907988
+
+
+## 1.5 索引覆盖
 
 索引覆盖是只查询索引，不走由ID构建的B+Tree。
 
@@ -127,7 +185,7 @@ mysql> explain select count(*) from buy_log where buy_date >= '2011-01-01' and b
 
 索引覆盖还可以用于解决 `limit 20000, 10`的问题。
 
-## 1.4 LIMIT优化
+## 1.6 LIMIT优化
 mysql大数据量使用limit分页，随着页码的增大，查询效率越低下。
 例如： limit10000,20的意思扫描满足条件的10020行，扔掉前面的10000行，返回最后的20行。
 
