@@ -16,6 +16,68 @@ WebSocket 使得客户端和服务器之间的数据交换变得更加简单，�
 
 HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯。
 
+可以应用在 实时要求高、海量并发的应用（网站）上。比如金融证券得实时信息，web导航应用中的地理未知获取，社交网络的实时推送等。
+
+一个使用WebSocket应用于视频的业务思路如下：
+
+- 使用心跳维护websocket链路，探测客户端端的网红/主播是否在线
+- 设置负载均衡7层的proxy_read_timeout默认为60s
+- 设置心跳为50s，即可长期保持Websocket不断开
+
+## 1.1 原理和运行机制
+From https://blog.csdn.net/qq_35623773/article/details/87868682
+
+在HTTP中一个request只能有一个response。而且这个response也是被动的，不能主动发起。
+
+首先，相对于HTTP这种非持久的协议来说，Websocket是一个持久化的协议。但是，Websocket是基于HTTP协议的，或者说借用了HTTP的协议来完成一部分握手。
+
+客户端建立一个websocket连接，会发送如下信息：
+
+```
+GET /webfin/websocket/ HTTP/1.1
+
+Host: localhost
+
+Upgrade: websocket
+
+Connection: Upgrade
+
+Sec-WebSocket-Key: xqBt3ImNzJbYqRINxEFlkg==
+
+Origin: http://localhost:8080
+
+Sec-WebSocket-Version: 13
+```
+
+在HTTP协议中,多了这些东西：
+
+```
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: xqBt3ImNzJbYqRINxEFlkg==
+```
+
+其中， Upgrade：websocket参数值表明这是WebSocket类型请求，Sec-WebSocket-Key是WebSocket客户端发送的一个 base64编码的密文，要求服务端必须返回一个对应加密的Sec-WebSocket-Accept应答，否则客户端会抛出Error during WebSocket handshake错误，并关闭连接。
+
+响应：
+```
+HTTP/1.1 101 Switching Protocols
+
+Upgrade: websocket
+
+Connection: Upgrade
+
+Sec-WebSocket-Accept: K7DJLdLooIwIG/MOpvWFB3y3FE8=
+```
+Sec-WebSocket-Accept的值是服务端采用与客户端一致的密钥计算出来后返回客户端的，具体是客户端传输过来的Sec-WebSocket-Key跟“258EAFA5-E914-47DA-95CA-C5AB0DC85B11”拼接后，用SHA-1加密，并进行BASE-64编码得来的。
+
+HTTP/1.1 101 Switching Protocols表示服务端接受WebSocket协议的客户端连接，客户端收到Sec-WebSocket-Accept后，将本地的Sec-WebSocket-Key进行同样的编码，然后比对。经过这样的请求-响应处理后，两端的WebSocket连接握手成功, 后续就可以进行TCP通讯了。
+
+只需要经过一次HTTP请求，就可以做到源源不断的信息传送了。（在程序设计中，这种设计叫做回调，即：你有信息了再来通知我，而不是我傻乎乎的每次跑来问你）
+
+## 1.2 协议栈
+https://tools.ietf.org/html/rfc6455
+
 # 二、使用姿势（后端）
 以下是 WebSocket 对象的相关事件。
 

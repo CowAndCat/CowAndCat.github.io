@@ -214,5 +214,7 @@ Dockfile:
 
 参见：[《Python 代码混淆、编译、打包、运行》](/python/2018/11/22/python-project.html)
 
+## 2.6 英文分词问题
 
+jieba英文空格分词问题：https://segmentfault.com/q/1010000016011808
 

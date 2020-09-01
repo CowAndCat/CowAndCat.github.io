@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 在Spring中遇到的bug
-category: java
+category: spring
 comments: false
 ---
 

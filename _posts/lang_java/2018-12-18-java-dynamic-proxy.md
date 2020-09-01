@@ -177,7 +177,9 @@ Class<?> cl = getProxyClass0(loader, intfs); 这里面的实现，还会有个pr
 后续内容就不深究了。 （对，我就是不求甚解！）
 
 ## 三、CGLIB 动态代理
-在Spring AOP中，通常会用CGLIB来生成AopProxy对象。
+在Spring AOP中，通常会用CGLIB(Code Generator Library)来生成AopProxy对象。
+
+CGLIB相比于JDK动态代理更加强大，JDK动态代理虽然简单易用，但是其有一个致命缺陷是，只能对接口进行代理。如果要代理的类为一个普通类、没有接口，那么Java动态代理就没法使用了。
 
 ### 3.1 例子和分析
 测试前先添加cglib依赖：
@@ -222,7 +224,7 @@ Class<?> cl = getProxyClass0(loader, intfs); 这里面的实现，还会有个pr
 
 JDK代理要求被代理的类必须实现接口，有很强的局限性。而CGLIB动态代理则没有此类强制性要求。简单的说，CGLIB会让生成的代理类继承被代理类，并在代理类中对代理方法进行强化处理(前置处理、后置处理等)。
 
-在CGLIB底层，其实是借助了ASM这个非常强大的Java字节码生成框架。
+在CGLIB底层，其实是借助了ASM(一个短小精悍的字节码操作框架)这个非常强大的Java字节码生成框架。ASM使用类似SAX的解析器来实现高性能。我们不鼓励直接使用ASM，因为它需要对Java字节码的格式足够的了解.
 
 从上例中我们看到，代理类对象是由Enhancer类创建的。Enhancer是CGLIB的字节码增强器，可以很方便的对类进行拓展。
 
@@ -246,7 +248,20 @@ CGLIB创建代理对象的几个步骤:
 | JDK动态代理 |代理类与委托类实现同一接口，主要是通过代理类实现InvocationHandler并重写invoke方法来进行动态代理的，在invoke方法中将对方法进行增强处理|不需要硬编码接口，代码复用率高|只能够代理实现了接口的委托类|底层使用反射机制进行方法的调用|
 |CGLIB动态代理|代理类将委托类作为自己的父类并为其中的非final委托方法创建两个方法，一个是与委托方法签名相同的方法，它在方法中会通过super调用委托方法；另一个是代理类独有的方法。在代理方法中，它会判断是否存在实现了MethodInterceptor接口的对象，若存在则将调用intercept方法对委托方法进行代理|可以在运行时对类或者是接口进行增强操作，且委托类无需实现接口|不能对final类以及final方法进行代理|底层将方法全部存入一个数组中，通过数组索引直接进行方法调用|
 
+- Java动态代理只能够对接口进行代理，不能对普通的类进行代理（因为所有生成的代理类的父类为Proxy，Java类继承机制不允许多重继承）；CGLIB能够代理普通类 (通过继承来实现，如果被代理类被final关键字所修饰，那么会失败）；
+- Java动态代理使用Java原生的反射API进行操作，在生成类上比较高效；CGLIB使用ASM框架直接对字节码进行操作，在类的执行过程中比较高效
+- 由于CGLIB的大部分类是直接对Java字节码进行操作，这样生成的类会在Java的永久堆中。如果动态代理操作过多，容易造成永久堆满，触发OutOfMemory异常。
+
+
+Spring AOP中的JDK和CGLib动态代理哪个效率更高？
+关于两者之间的性能的话，JDK动态代理所创建的代理对象，在以前的JDK版本中，性能并不是很高，虽然在高版本中JDK动态代理对象的性能得到了很大的提升，但是他也并不是适用于所有的场景。主要体现在如下的两个指标中：
+
+1、CGLib所创建的动态代理对象在实际运行时候的性能要比JDK动态代理高不少，有研究表明，大概要高10倍；
+
+2、但是CGLib在创建对象的时候所花费的时间却比JDK动态代理要多很多，有研究表明，大概有8倍的差距；
 
 ## REF
 > [深入理解JDK动态代理机制](https://www.jianshu.com/p/471c80a7e831)  
-> [深入理解CGLIB动态代理机制](https://www.jianshu.com/p/9a61af393e41?from=timeline&isappinstalled=0)
+> [深入理解CGLIB动态代理机制](https://www.jianshu.com/p/9a61af393e41?from=timeline&isappinstalled=0)  
+> [CGLIB原理及实现机制](https://blog.csdn.net/gyshun/article/details/81000997)  
+> [Spring AOP中的JDK和CGLib动态代理哪个效率更高？](https://blog.csdn.net/u010870518/java/article/details/82497594)

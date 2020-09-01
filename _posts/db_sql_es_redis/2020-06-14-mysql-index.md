@@ -99,10 +99,22 @@ rows: 1 -- 这个数表示mysql要遍历多少数据才能找到，在innodb上�
 Extra: Using where; Using index -- 执行状态说明，这里可以看到的坏的例子是Using temporary和Using filesort
 ```
 
-其中type:
+SQL 性能优化的目标：至少要达到 range 级别，要求是 ref 级别，如果可以是 consts最好。
 
-- 如果是Only index，这意味着信息只用索引树中的信息检索出的，这比扫描整个表要快。
-- 如果是where used，就是使用上了where限制。
+其中type(https://blog.csdn.net/dennis211/article/details/78170079)：
+
+- 系统表，少量数据，往往不需要进行磁盘IO；（select * from mysql.time_zone;）
+- consts 查找主键索引，返回的数据至多一条（0或者1条）。 属于精确查找（select * from user where id=1;）
+- eq_ref 使用了主键或者唯一性索引进行查找，查找结果集只有一个。。属于精确查找.(select * from user,user_ex where user.id=user_ex.id;)
+- ref 指的是使用普通的索引（normal index）。意思就是虽然使用了索引，但该索引列的值并不唯一，有重复。所以得多次扫描索引查询重复值。属于精确查找.(select * from user where age=1;)
+- range 有范围的索引扫描，相对于index的全索引扫描，它有范围限制，因此要优于index。关于range比较容易理解，需要记住的是出现了range，则一定是基于索引的。同时除了显而易见的between，and以及'>','<'外，in和or也是索引范围扫描。属于范围查找。(select * from user where id between 1 and 4;)
+- index, 先走索引物理文件，再全扫描（可能会索引覆盖），速度非常慢。扫描根据索引然后回表取数据，和all相比，他们都是取得了全表的数据，而且index要先读索引而且要回表随机取数据，因此index可能会比all还慢。(select count (*) from user;)
+- all 全表扫描，低效且慢
+
+其中Extra:
+
+- 如果是Using index，这意味着信息只用索引树中的信息检索出的，这比扫描整个表要快。
+- 如果是Using where used，就是使用上了where限制。
 - 如果是impossible where 表示用不着where，一般就是没查出来啥。
 - 如果此信息显示Using filesort或者Using temporary的话会很吃力，WHERE和ORDER BY的索引经常无法兼顾，如果按照WHERE来确定索引，那么在ORDER BY时，就必然会引起Using filesort，这就要看是先过滤再排序划算，还是先排序再过滤划算。
 
@@ -284,6 +296,12 @@ b 当打开ICP时,如果部分where条件能使用索引中的字段,MySQL Serve
 - 更新十分频繁的字段上不宜建立索引：因为更新操作会变更B+树，重建索引。这个过程是十分消耗数据库性能的。
 
 - 不要抵制唯一索引。业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。虽然唯一索引会影响insert速度（先查后插），但是对于查询的速度提升是非常明显的。另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，在并发的情况下，依然有脏数据产生。
+
+
+建组合索引的时候，区分度最高的在最左边。  
+正例：如果 where a=? and b=?，a 列的几乎接近于唯一值，那么只需要单建 idx_a 索引即可。  
+说明：存在非等号和等号混合判断条件时，在建索引时，请把等号条件的列前置。如：where c>? and d=?
+那么即使 c 的区分度更高，也必须把 d 放在索引的最前列，即建立组合索引 idx_d_c。
 
 ## 3.2 范围查询
 如果是范围查询和等值查询同时存在，优先匹配等值查询列的索引：

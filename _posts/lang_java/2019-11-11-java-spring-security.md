@@ -16,9 +16,4 @@ Shiro和Spring Security比较
 - Shiro 功能强大、且 简单、灵活。是Apache 下的项目比较可靠，且不跟任何的框架或者容器绑定，可以独立运行
 
 
-TBC
---------------------- 
-作者：liyuejin 
-来源：CSDN 
 原文：https://blog.csdn.net/liyuejin/article/details/77838868 
-版权声明：本文为博主原创文章，转载请附上博文链接！

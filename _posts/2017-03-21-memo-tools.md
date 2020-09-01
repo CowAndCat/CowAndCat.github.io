@@ -45,3 +45,10 @@ comments: false
 - Travis CI 免费的集成测试环境
 可以与github项目结合。
 
+## 五、读书
+
+https://tyi45di4ct.jiandaoyun.com/dash/5e7d915c6c56d8000674a8b8
+http://www.haodoo.net/
+https://www.jiumodiary.com/
+
+http://goldroom.top/
